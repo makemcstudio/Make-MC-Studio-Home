@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Make MC Studio: modpacks, texturas y mods de Minecraft hechos por un grupo de amigos. Descubre nuestros proyectos y cómo colaborar con el equipo.">
+<meta name="theme-color" content="#0b0704">
+<link rel="icon" type="image/png" href="Make%20MC%20Studio%20Web%20logo%20-%20Orange%20butterfly.png">
+<link rel="apple-touch-icon" href="Make%20MC%20Studio%20Web%20logo%20-%20Orange%20butterfly.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Make MC Studio — Modpacks y más para Minecraft">
+<meta property="og:description" content="Modpacks, texturas y mods de Minecraft hechos por un grupo de amigos. Descubre nuestros proyectos y cómo colaborar con el equipo.">
+<meta property="og:image" content="Make%20MC%20Studio%20Web%20logo%20-%20Orange%20butterfly.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Make MC Studio — Modpacks y más para Minecraft">
+<meta name="twitter:description" content="Modpacks, texturas y mods de Minecraft hechos por un grupo de amigos.">
+<meta name="twitter:image" content="Make%20MC%20Studio%20Web%20logo%20-%20Orange%20butterfly.png">
+
+<title>Make MC Studio — Modpacks y más para Minecraft</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0b0704;
+    --bg-soft:#050302;
+    --surface:linear-gradient(155deg, #241708 0%, #120b05 65%);
+    --surface-flat:#180f07;
+    --surface-line:#3a2412;
+    --lapis:#ff751f;
+    --lapis-bright:#ffa15c;
+    --diamond:#d97b2e;
+    --enchant:#b3401a;
+    --text:#f7ece0;
+    --text-muted:#af9679;
+    --radius-step:8px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0) 0 0/42px 42px,
+      radial-gradient(ellipse 900px 480px at 84% -6%, rgba(255,161,92,.10) 0%, transparent 60%),
+      radial-gradient(ellipse 1100px 560px at 14% -8%, rgba(255,117,31,.14) 0%, transparent 55%),
+      radial-gradient(ellipse 1200px 620px at 50% -10%, #201105 0%, var(--bg) 55%);
+    background-color:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+
+  h1,h2,h3{
+    font-family:'Silkscreen',system-ui,sans-serif;
+    line-height:1.3;
+    margin:0 0 .5em;
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.82rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--diamond);
+  }
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .slot{
+    --n:var(--radius-step);
+    clip-path: polygon(
+      0 var(--n), var(--n) var(--n), var(--n) 0,
+      calc(100% - var(--n)) 0, calc(100% - var(--n)) var(--n), 100% var(--n),
+      100% calc(100% - var(--n)), calc(100% - var(--n)) calc(100% - var(--n)), calc(100% - var(--n)) 100%,
+      var(--n) 100%, var(--n) calc(100% - var(--n)), 0 calc(100% - var(--n))
+    );
+  }
+
+  .hero{
+    padding:88px 0 72px;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center;
+  }
+  .hero h1{font-size:clamp(1.8rem,4vw,2.7rem); color:var(--text);}
+  .hero h1 span{color:var(--lapis-bright);}
+  .hero p{color:var(--text-muted); font-size:1.05rem; max-width:46ch;}
+  .hero-copy{padding-left:clamp(6px,1.5vw,20px);}
+  .hero-ctas{display:flex; gap:14px; margin-top:28px; flex-wrap:wrap;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 22px;
+    font-family:'Inter'; font-weight:600; font-size:.95rem;
+    text-decoration:none; cursor:pointer; border:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+    position:relative; overflow:hidden;
+  }
+  .btn-primary{
+    background:linear-gradient(180deg, var(--lapis-bright), var(--lapis));
+    color:#fff8f0;
+    box-shadow:inset 2px 2px 0 rgba(255,255,255,.28), inset -2px -2px 0 rgba(0,0,0,.28);
+  }
+  .btn-primary::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);
+    background-size:250% 250%; background-position:-150% -150%;
+    transition:background-position .6s ease; pointer-events:none;
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:inset 2px 2px 0 rgba(255,255,255,.28), inset -2px -2px 0 rgba(0,0,0,.28), 0 6px 0 0 #b3480f;
+  }
+  .btn-primary:hover::after{background-position:150% 150%;}
+  .btn-ghost{background:transparent; color:var(--text); border:1px solid var(--surface-line);}
+  .btn-ghost:hover{border-color:var(--lapis-bright); color:var(--lapis-bright);}
+
+  .craft{display:flex; align-items:center; gap:18px; justify-content:center;}
+  .craft-grid{
+    display:grid; grid-template-columns:repeat(3,52px); grid-template-rows:repeat(3,52px); gap:8px;
+  }
+  .craft-grid .cell{
+    background:var(--surface); border:1px solid var(--surface-line);
+  }
+  .craft-grid .cell.on{background:var(--lapis); animation:glow 2.4s ease-in-out infinite;}
+  .craft-grid .cell.on.cyan{background:var(--diamond); animation-delay:.5s;}
+  .craft-grid .cell.on:nth-child(2){animation-delay:.3s;}
+  .craft-grid .cell.on:nth-child(5){animation-delay:.9s;}
+  .craft-grid .cell.on:nth-child(8){animation-delay:1.2s;}
+  @keyframes glow{
+    0%,100%{opacity:.55; box-shadow:0 0 0 rgba(255,161,92,0);}
+    50%{opacity:1; box-shadow:0 0 16px rgba(255,161,92,.6);}
+  }
+  .craft-caption{text-align:center; color:var(--text-muted); font-size:.8rem; margin-top:14px; font-family:'JetBrains Mono';}
+
+  section{padding:64px 0; scroll-margin-top:16px;}
+  .section-head{margin-bottom:40px; max-width:60ch;}
+  .section-head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);}
+  .section-head p{color:var(--text-muted);}
+
+  .service-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;
+  }
+  .service-card{
+    background:var(--surface); border:1px solid var(--surface-line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    padding:22px; display:flex; gap:16px; align-items:flex-start;
+  }
+  .service-icon{
+    width:44px; height:44px; flex-shrink:0;
+    background:linear-gradient(145deg,var(--lapis-bright),var(--lapis));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Silkscreen'; font-size:.72rem; color:#fff8f0;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
+  }
+  .service-card h3{font-family:'Inter'; font-size:1rem; font-weight:700; margin:0 0 6px;}
+  .service-card p{color:var(--text-muted); font-size:.9rem; margin:0;}
+
+  .pack-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;
+  }
+  .pack-card{
+    background:var(--surface); border:1px solid var(--surface-line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    display:flex; flex-direction:column;
+    transition:transform .15s ease, border-color .15s ease;
+  }
+  .pack-card:hover{transform:translateY(-4px); border-color:var(--lapis-bright);}
+  .pack-thumb{
+    height:150px; overflow:hidden;
+    background:
+      repeating-conic-gradient(var(--bg-soft) 0% 25%, var(--surface-flat) 0% 50%) 0 0/24px 24px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-muted); font-family:'JetBrains Mono'; font-size:.85rem;
+  }
+  .pack-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .pack-body{padding:20px; display:flex; flex-direction:column; gap:10px; flex:1;}
+  .pack-tags{display:flex; gap:8px; flex-wrap:wrap;}
+  .tag{
+    font-family:'JetBrains Mono'; font-size:.76rem; letter-spacing:.02em;
+    padding:4px 10px; border:1px solid var(--surface-line); color:var(--diamond);
+  }
+  .pack-body h3{font-family:'Inter'; font-size:1.1rem; font-weight:700; margin:0;}
+  .pack-body p{color:var(--text-muted); font-size:.92rem; margin:0; flex:1;}
+  .pack-body .btn{align-self:flex-start; margin-top:4px; padding:9px 16px; font-size:.85rem;}
+
+  .equipo-intro{display:grid; grid-template-columns:.8fr 1.2fr; gap:40px; align-items:start; margin-bottom:48px;}
+  .equipo-avatar{
+    aspect-ratio:1; background:var(--surface); border:1px solid var(--surface-line);
+    overflow:hidden;
+  }
+  .equipo-avatar img{width:100%; height:100%; object-fit:cover; display:block;}
+  .equipo-intro p{color:var(--text-muted);}
+
+  .team-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px;
+  }
+  .team-grid-intro{
+    font-family:'Silkscreen',system-ui,sans-serif; line-height:1.3; font-weight:700;
+    font-size:clamp(1.4rem,2.6vw,1.9rem); color:var(--text);
+    margin:0 0 28px; max-width:60ch;
+  }
+  .team-card{
+    background:var(--surface); border:1px solid var(--surface-line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    padding:26px 20px; text-align:center;
+  }
+  .team-avatar{
+    width:80px; height:80px; margin:0 auto 16px;
+    background:var(--surface-flat); border:1px solid var(--surface-line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono'; color:var(--text-muted); font-size:.74rem;
+  }
+  .team-card h3{font-family:'Inter'; font-size:1rem; font-weight:700; margin:0 0 4px;}
+  .team-role{font-family:'JetBrains Mono'; font-size:.78rem; letter-spacing:.02em; color:var(--diamond);}
+
+  .recipe{
+    background:var(--bg-soft); border:1px solid var(--surface-line);
+    padding:40px; display:grid; grid-template-columns:1fr auto 1fr; gap:28px; align-items:stretch;
+    margin-bottom:24px;
+  }
+  .ingredients{display:grid; gap:14px;}
+  .ingredient{
+    display:flex; align-items:center; gap:12px;
+    background:var(--surface); border:1px solid var(--surface-line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+    padding:14px 16px;
+  }
+  .ingredient .dot{width:10px; height:10px; background:var(--diamond); flex-shrink:0;}
+  .ingredient strong{display:block; font-size:.95rem;}
+  .ingredient span{color:var(--text-muted); font-size:.82rem;}
+  .recipe-arrow{
+    font-family:'JetBrains Mono'; font-size:1.6rem; color:var(--lapis-bright); text-align:center;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .output-box{
+    background:var(--surface); border:1px solid var(--lapis);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+    padding:26px; text-align:center;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .output-box h3{font-size:1.15rem;}
+  .output-box p{color:var(--text-muted); font-size:.9rem; margin-bottom:18px;}
+
+  #colabora{padding-bottom:110px;}
+
+  @media (max-width:840px){
+    .hero, .equipo-intro{grid-template-columns:1fr;}
+    .hero .craft{margin-top:12px;}
+    .recipe{grid-template-columns:1fr; text-align:center;}
+    .recipe-arrow{transform:rotate(90deg);}
+  }
+
+  @media (max-width:640px){
+    .wrap{padding:0 18px;}
+    .hero{padding:44px 0 36px;}
+    .hero-copy{padding-left:0;}
+    .hero-ctas .btn{flex:1 1 auto; justify-content:center;}
+    section{padding:40px 0;}
+    .section-head{margin-bottom:24px;}
+    .equipo-avatar{max-width:220px; margin:0 auto;}
+    .team-grid{grid-template-columns:repeat(2,1fr);}
+    .recipe{padding:24px;}
+    #colabora{padding-bottom:56px;}
+  }
+
+  footer{
+    border-top:1px solid var(--surface-line);
+    padding:36px 0 48px;
+    color:var(--text-muted); font-size:.82rem;
+  }
+  footer .wrap{display:flex; flex-direction:column; gap:10px;}
+  footer a{color:var(--lapis-bright); text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  .footer-legal-links{
+    display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; justify-content:space-between;
+    margin-top:8px; padding-top:16px;
+    font-family:'JetBrains Mono'; font-size:.8rem; letter-spacing:.01em;
+  }
+  .footer-legal-links span{color:var(--text-muted);}
+  .footer-social{display:flex; gap:14px; align-items:center;}
+  .social-icon{
+    display:inline-flex; width:20px; height:20px;
+    opacity:.75; transition:opacity .15s ease, transform .15s ease;
+  }
+  .social-icon:hover, .social-icon:focus-visible{opacity:1; transform:translateY(-2px);}
+  .social-icon img{width:100%; height:100%; display:block;}
+
+  :focus-visible{outline:2px solid var(--lapis-bright); outline-offset:2px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<main id="top">
+
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <p class="eyebrow">Make MC Studio, creado por NarellYT</p>
+      <h1>Creamos modpacks personalizados según <span>tu imaginación</span>.</h1>
+      <p>Make MC Studio es un grupo de creadores dedicado al diseño y mantenimiento de paquetes de mods y
+        texturas para Minecraft. Nos enfocamos en crear experiencias de aventura, tecnología y magia: todo
+        lo que permitan tu imaginación y nuestro tiempo. Echa un vistazo a nuestro trabajo y prueba nuestros
+        primeros modpacks. Si te gustaría crear con nosotros, ¡no dudes en ponerte en contacto!
+      </p>
+      <div class="hero-ctas">
+        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+        <a href="#colabora" class="btn btn-ghost">Quiero colaborar</a>
+      </div>
+    </div>
+    <div>
+      <div class="craft">
+        <div class="craft-grid" aria-hidden="true">
+          <div class="cell on"></div><div class="cell on cyan"></div><div class="cell"></div>
+          <div class="cell"></div><div class="cell on"></div><div class="cell on cyan"></div>
+          <div class="cell on"></div><div class="cell"></div><div class="cell on"></div>
+        </div>
+      </div>
+      <p class="craft-caption">Minecraft + Historias + Tiempo = Diversión</p>
+    </div>
+  </section>
+
+  <section class="wrap" id="hacemos">
+    <div class="section-head">
+      <h2>Qué hacemos</h2>
+      <p>Un modpack rara vez es solo una lista de mods. Esto es lo que hacemos, entre todos, para que cada proyecto se sienta terminado.</p>
+    </div>
+
+    <div class="service-grid">
+      <article class="service-card">
+        <div class="service-icon">MP</div>
+        <div>
+          <h3>Modpacks</h3>
+          <p>Colecciones de mods ajustadas y probadas para jugar sin fricciones, desde survival exigente hasta aventura narrativa.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="service-icon">RP</div>
+        <div>
+          <h3>Texturas y resource packs</h3>
+          <p>Paquetes de texturas propios, pensados para encajar con la estética de cada modpack.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="service-icon">MD</div>
+        <div>
+          <h3>Mods y datapacks</h3>
+          <p>Mecánicas nuevas, hechas a medida cuando ningún mod existente hace exactamente lo que necesitamos.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="service-icon">3D</div>
+        <div>
+          <h3>Modelado con Blockbench</h3>
+          <p>Bloques, ítems y criaturas modelados y animados para dar personalidad a cada proyecto.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="service-icon">SV</div>
+        <div>
+          <h3>Configuración de servidores</h3>
+          <p>Montamos y afinamos servidores para que un modpack corra estable desde el primer día.</p>
+        </div>
+      </article>
+      <article class="service-card">
+        <div class="service-icon">EN</div>
+        <div>
+          <h3>Encargos a medida</h3>
+          <p>¿Tienes un server o una comunidad? Diseñamos un modpack pensado solo para vosotros.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" id="proyectos">
+    <div class="section-head">
+      <h2>Proyectos</h2>
+      <p>Cada tarjeta enlaza a la página de descarga en CurseForge, nuestra plataforma principal — algunos proyectos también podrían estar en Modrinth. Sirve igual para un modpack, una textura o un mod suelto.</p>
+    </div>
+
+    <div class="pack-grid">
+      <article class="pack-card">
+        <div class="pack-thumb">vista previa</div>
+        <div class="pack-body">
+          <div class="pack-tags"><span class="tag">Fabric 1.21</span><span class="tag">Tecnología</span></div>
+          <h3>Nombre del modpack 2</h3>
+          <p>Descripción corta: de qué trata, qué lo hace distinto y a quién le puede gustar.</p>
+          <a href="#" class="btn btn-primary">Descargar</a>
+        </div>
+      </article>
+
+      <article class="pack-card">
+        <div class="pack-thumb">vista previa</div>
+        <div class="pack-body">
+          <div class="pack-tags"><span class="tag">Forge 1.19.2</span><span class="tag">Magia</span></div>
+          <h3>Nombre del modpack 3</h3>
+          <p>Descripción corta: de qué trata, qué lo hace distinto y a quién le puede gustar.</p>
+          <a href="#" class="btn btn-primary">Descargar</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" id="equipo">
+    <div class="section-head">
+      <h2>El equipo detrás de los proyectos</h2>
+    </div>
+
+    <div class="equipo-intro">
+      <div class="equipo-avatar"><img src="Creador-de-Make-MC-Studio.png" alt="Foto del creador de Make MC Studio"></div>
+      <div>
+        <p>¡Hola a todos! Soy el creador de Make MC Studio. Llevo algo más de dos meses sumergido en el mundo de la creación y personalización de modpacks para Minecraft. Todo esto empezó por mi propio amor al juego modificado; me apasiona alterar la experiencia base, experimentar y dar vida a ideas nuevas dentro del juego.</p>
+        <p>No me limito a un solo género de juego: me encanta todo lo que tenga que ver con Minecraft y sus mods. Mi objetivo principal es conectar con la comunidad, hablar con ustedes, saber qué les gusta y diseñar proyectos basados en lo que me piden o sugieran.</p>
+        <p>Actualmente gestiono y distribuyo mis proyectos a través de CurseForge, y cuando hace falta diseñar algo desde cero, uso Blockbench para el modelado. Aunque ahora mismo trabajo en solitario y sigo aprendiendo a dominar las herramientas, estoy totalmente abierto a colaborar con más personas para crear proyectos juntos, compartir ideas y ayudarnos mutuamente, o para trabajar en encargos específicos en un futuro.</p>
+      </div>
+    </div>
+
+    <p class="team-grid-intro">Estas son las personas que me apoyan y están conmigo en este proyecto.</p>
+    <div class="team-grid">
+      <article class="team-card">
+        <div class="team-avatar">foto</div>
+        <h3>[Nombre]</h3>
+        <p class="team-role">Modpacks y configuración</p>
+      </article>
+      <article class="team-card">
+        <div class="team-avatar">foto</div>
+        <h3>[Nombre]</h3>
+        <p class="team-role">Modelado y texturas</p>
+      </article>
+      <article class="team-card">
+        <div class="team-avatar">foto</div>
+        <h3>[Nombre]</h3>
+        <p class="team-role">Programación</p>
+      </article>
+      <article class="team-card">
+        <div class="team-avatar">foto</div>
+        <h3>[Nombre]</h3>
+        <p class="team-role">Comunidad y servidores</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="wrap" id="colabora">
+    <div class="section-head">
+      <h2>Construyamos algo juntos</h2>
+      <p>Buscamos gente con experiencia en Blockbench, programación o configuración de modpacks para sumarse al equipo por diversión y aprendizaje. Y si lo tuyo no es unirte sino encargar un modpack a medida para tu server o comunidad, también puedes escribirnos — hablamos de qué necesitáis y cómo lo montamos.</p>
+    </div>
+
+    <div class="recipe">
+      <div class="ingredients">
+        <div class="ingredient"><div class="dot"></div><div><strong>Blockbench</strong><span>Modelado y animación de bloques/ítems</span></div></div>
+        <div class="ingredient"><div class="dot"></div><div><strong>Programación</strong><span>Java, Kotlin, APIs de Forge/Fabric</span></div></div>
+        <div class="ingredient"><div class="dot"></div><div><strong>Configuración de modpacks</strong><span>packwiz, CurseForge, Modrinth, balanceo</span></div></div>
+        <div class="ingredient"><div class="dot"></div><div><strong>Comunidad y contenido</strong><span>Moderación, Discord, capturas y trailers</span></div></div>
+      </div>
+
+      <div class="recipe-arrow">→</div>
+
+      <div class="output-box">
+        <h3>Hablemos</h3>
+        <p>Cuéntanos qué sabes hacer, qué te gustaría construir con nosotros, o qué encargo tienes en mente.</p>
+                <a class="btn btn-primary" href="mailto:makemcstudio@gmail.com?subject=Contacto%20-%20Make%20MC%20Studio&body=Hola%2C%0A%0AOs%20escribo%20porque%20me%20gustar%C3%ADa%20%5Bcolaborar%20en%20un%20proyecto%20%2F%20encargaros%20un%20modpack%5D.%20Esto%20es%20lo%20que%20tengo%20en%20mente%3A%0A%0A">
+          Escríbenos por correo
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Contacto: <a href="mailto:makemcstudio@gmail.com">makemcstudio@gmail.com</a></p>
+    <p>
+      Este sitio y los proyectos que aquí se muestran son un proyecto de fans, creado de forma independiente.
+      No es un producto oficial de Minecraft. No está aprobado por ni asociado con Mojang o Microsoft.
+      "Minecraft" es una marca registrada de Mojang Synergies AB.
+    </p>
+    <p>Todos los mods incluidos en los proyectos se distribuyen de acuerdo con las licencias de sus creadores originales. Los créditos correspondientes están detallados en sus respectivas páginas de descarga.</p>
+    <div class="footer-legal-links">
+      <span>© 2026 Make MC Studio</span>
+      <div class="footer-social">
+        <a class="social-icon" href="https://www.youtube.com/@MakeMCStudio" target="_blank" rel="noopener" aria-label="YouTube">
+          <img src="youtube.svg" alt="">
+        </a>
+        <a class="social-icon" href="#" target="_blank" rel="noopener" aria-label="Discord">
+          <img src="discord.svg" alt="">
+        </a>
+        <a class="social-icon" href="https://x.com/MakeMCStudio" target="_blank" rel="noopener" aria-label="X">
+          <img src="twitter-x.svg" alt="">
+        </a>
+        <a class="social-icon" href="https://www.instagram.com/makemcstudio/" target="_blank" rel="noopener" aria-label="Instagram">
+          <img src="instagram.svg" alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
