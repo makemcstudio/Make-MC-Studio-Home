@@ -1,6 +1,6 @@
 # Aviso de derechos de autor y uso del contenido
 
-© 2026 Make MC Studio. Todos los derechos reservados.
+© 2026 Make MC Studio. All rights reserved.
 
 Todo el contenido original creado por **Make MC Studio**, incluyendo, pero no limitado a: el código HTML, la estructura y diseño de la página web, el logotipo de Make MC Studio, imágenes propias, gráficos, ilustraciones, elementos visuales, recursos personalizados, nombres, diseños y cualquier otro material original incluido en este proyecto, está protegido por derechos de autor y otras leyes de propiedad intelectual aplicables.
 
