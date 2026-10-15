@@ -1,7 +1,7 @@
 AVISO LEGAL Y DERECHOS DE AUTOR
 Make MC Studio
 © 2026 Make MC Studio. All rights reserved.
-Última actualización: 10 de octubre de 2026
+Última actualización: 14 de octubre de 2026
 
 
 1. TITULARIDAD
@@ -29,7 +29,7 @@ Sin autorización previa y por escrito de Make MC Studio, no está permitido:
 
 4. CONTENIDO DE TERCEROS
 
-Minecraft es una marca registrada de Mojang Synergies AB. Este sitio es un proyecto de fans, independiente, y no es un producto oficial de Minecraft. No está aprobado por Mojang ni por Microsoft, ni asociado con ellos.
+Minecraft es una marca registrada de Mojang Synergies AB. Este sitio es un proyecto de fans, independiente, y no es un producto oficial de Minecraft. No está aprobado por Mojang ni por Microsoft, ni asociado con estas empresas.
 
 Los mods que forman parte de los modpacks pertenecen a sus autores y se distribuyen conforme a las licencias que cada autor ha establecido. Los créditos aparecen en la página de descarga de cada proyecto.
 
