@@ -42,7 +42,6 @@
 
 <style>
 @font-face{font-family:"Silkscreen";src:url("fonts/silkscreen-400.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Silkscreen";src:url("fonts/silkscreen-700.woff") format("woff");font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:"Figtree";src:url("fonts/figtree-var.woff") format("woff");font-weight:300 900;font-style:normal;font-display:swap}
 
 :root{
@@ -63,13 +62,14 @@
   --margin:clamp(20px,3vw,48px);
   --pad:clamp(20px,2.4vw,36px);
   --header-h:64px;
-  --section-gap:clamp(72px,10vw,152px);
+  --section-gap:clamp(80px,11vw,168px);
 
   --t-small:.875rem;
   --t-body:clamp(1rem,.95rem + .22vw,1.125rem);
   --t-lead:clamp(1.125rem,1.03rem + .4vw,1.25rem);
-  --t-statement:clamp(1.5rem,1.05rem + 1.2vw,2.25rem);
-  --t-h2:clamp(1.375rem,.9rem + 2.9vw,3rem);
+  --t-h2:clamp(1.375rem,.9rem + 2.4vw,2.75rem);
+  --t-h1:clamp(2.25rem,1rem + 4vw,4.5rem);
+  --t-manifesto:clamp(1.25rem,1rem + 1vw,1.875rem);
   --t-h3:1.25rem;
 
   --ease-out:cubic-bezier(.22,1,.36,1);
@@ -110,6 +110,9 @@ section{scroll-margin-top:calc(var(--header-h) + 16px)}
 .site-nav a:hover{color:var(--ink)}
 .site-nav a.active{color:var(--ink)}
 .site-nav a.active::before{opacity:1;transform:none}
+.site-nav a:last-child{margin-left:8px;padding:8px 18px;line-height:1.3;border:1px solid var(--tile-3);color:var(--ink);transition:background var(--t-hover) var(--ease-out),border-color var(--t-hover) var(--ease-out),color var(--t-hover) var(--ease-out)}
+.site-nav a:last-child::before{display:none}
+.site-nav a:last-child:hover{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .nav-toggle{display:none;width:44px;height:44px;padding:0;background:none;border:0;align-items:center;justify-content:center;flex-direction:column;gap:5px}
 .nav-toggle-bar{display:block;width:20px;height:3px;background:var(--ink);transition:transform var(--t-ui) var(--ease-out),opacity var(--t-ui) var(--ease-out)}
 .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1){transform:translateY(8px) rotate(45deg)}
@@ -118,6 +121,7 @@ section{scroll-margin-top:calc(var(--header-h) + 16px)}
 
 main{display:block}
 .sec{padding-top:var(--section-gap)}
+.sec-tight{padding-top:clamp(56px,7vw,104px)}
 .hero{padding-top:clamp(32px,4.4vw,64px)}
 .board{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
 .blk{min-width:0}
@@ -140,20 +144,38 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
 .panel-accent :focus-visible{outline-color:var(--accent-ink)}
 .ico{width:56px;height:56px;fill:currentColor;shape-rendering:crispEdges}
 
-.hero-board{row-gap:0}
-.hero-board .t-name,.hero-board .t-craft{margin-bottom:clamp(48px,6vw,88px)}
-.hero-board .t-name{grid-column:1/8;container-type:inline-size;display:flex;flex-direction:column;justify-content:space-between;gap:clamp(28px,4vw,56px)}
-.hero-board .t-craft{grid-column:8/13;display:flex;flex-direction:column;justify-content:flex-end;gap:20px}
-.hero-board .t-statement{grid-column:1/7;grid-row:2/4;padding-top:var(--gap);border-top:1px solid var(--tile-3)}
-.hero-board .t-text{grid-column:7/13;grid-row:2;padding-top:var(--gap);border-top:1px solid var(--tile-3)}
-.hero-board .t-action{grid-column:7/13;grid-row:3;display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;margin-top:28px}
 
-.display{margin-left:-.12em;font:700 clamp(3rem,11vw,8rem)/1 var(--font-display);font:700 calc(100cqw / 6)/1 var(--font-display)}
-.display .line{display:block;overflow:hidden;padding-bottom:.04em}
-.display .line > span{display:block}
-.lead{font-size:var(--t-lead);line-height:1.5;max-width:40ch;color:var(--ink-2)}
-.statement{font:600 var(--t-statement)/1.18 var(--font-text);letter-spacing:-.01em;max-width:20ch}
-.hero-board .t-text p{color:var(--ink-2)}
+.hero-board{align-items:center}
+.hero-board .t-name{grid-column:1/9}
+.hero-board .t-craft{grid-column:9/13;display:flex;flex-direction:column;gap:20px}
+h1{margin-left:-.04em;font:700 var(--t-h1)/1.04 var(--font-text);letter-spacing:-.035em;max-width:15ch}
+h1 em{font-style:normal;color:var(--accent)}
+.lead{margin-top:clamp(20px,2.4vw,32px);font-size:var(--t-lead);line-height:1.5;max-width:36ch;color:var(--ink-2)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;margin-top:clamp(28px,3.2vw,44px)}
+
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.fact{display:flex;flex-direction:column;gap:10px;padding-top:22px;border-top:1px solid var(--tile-3)}
+.fact strong{font:700 1.125rem/1.25 var(--font-text)}
+.fact strong::before{content:"";display:inline-block;width:8px;height:8px;margin-right:12px;background:var(--accent);vertical-align:.08em}
+.fact span{color:var(--ink-2);font-size:var(--t-small);line-height:1.55}
+
+.manifesto{max-width:1000px;margin-inline:auto}
+.manifesto p{max-width:none;font:500 var(--t-manifesto)/1.42 var(--font-text);letter-spacing:-.01em;color:var(--ink-2)}
+.manifesto p span{color:var(--ink)}
+
+.sec-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.sec-head h2{grid-column:1/7}
+.sec-head p{grid-column:8/13;color:var(--ink-2);font-size:var(--t-lead);line-height:1.5}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gap);row-gap:clamp(36px,4.4vw,64px)}
+.card{display:flex;flex-direction:column;gap:12px;padding-top:26px;border-top:1px solid var(--tile-3)}
+.card .ico{margin-bottom:14px;color:var(--accent);transition:transform var(--t-ui) var(--ease-out)}
+.card:hover .ico{transform:translateY(-3px)}
+.card p{color:var(--ink-2);max-width:40ch}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.step{padding-top:22px;border-top:1px solid var(--tile-3)}
+.step-n{display:block;margin-bottom:clamp(28px,4vw,56px);font:400 var(--t-small)/1 var(--font-display);color:var(--accent)}
+.step h3{margin-bottom:10px}
+.step p{color:var(--ink-2);max-width:32ch}
 
 .craft-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(100%,300px);aspect-ratio:1;margin-left:auto}
 .cell{position:relative;background:var(--tile-3);--c-in:var(--tile-2);transition:background var(--t-ui) var(--ease-out)}
@@ -173,24 +195,13 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
 .chip-result.lit{background:var(--accent);color:var(--accent-ink)}
 .op{color:var(--ink-2);font-weight:700}
 
-.rows{display:grid;border-bottom:1px solid var(--tile-3)}
-.row{display:grid;grid-template-columns:56px minmax(0,1fr);gap:clamp(16px,2vw,32px);align-items:start;padding:clamp(22px,2.6vw,34px) 0;border-top:1px solid var(--tile-3)}
-.row .ico{color:var(--accent);transition:transform var(--t-ui) var(--ease-out)}
-.row:hover .ico{transform:translateY(-3px)}
-.row h3{margin-bottom:8px}
-.row p{color:var(--ink-2);max-width:58ch}
 
-.hacemos-board .t-intro{grid-column:1/5;align-self:start;position:sticky;top:calc(var(--header-h) + var(--gap));display:flex;flex-direction:column;gap:24px}
-.hacemos-board .rows{grid-column:6/13}
-.t-intro p{color:var(--ink-2);font-size:var(--t-lead);line-height:1.5}
 
-.proy-board .t-head{grid-column:1/13;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:end}
-.proy-board .t-head h2{grid-column:1/7}
-.proy-board .t-head p{grid-column:8/13;color:var(--ink-2);font-size:var(--t-lead);line-height:1.5}
-.proy-board .t-art{grid-column:1/9;padding:0;overflow:hidden;min-height:clamp(260px,32vw,480px);background:var(--tile-2)}
-.proy-board .t-proj{grid-column:9/13;display:flex;flex-direction:column;justify-content:space-between;gap:32px}
-.proj-name{font:400 var(--t-h2)/1.08 var(--font-display);margin-bottom:20px}
-.t-proj p{color:var(--ink-2)}
+.t-art{padding:0;overflow:hidden;min-height:clamp(280px,32vw,480px);background:var(--tile-2)}
+.proj{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:start;margin-top:clamp(28px,3.4vw,48px)}
+.proj-main{grid-column:1/7}
+.proj > p{grid-column:8/13;color:var(--ink-2);font-size:var(--t-lead);line-height:1.5}
+.proj-name{font:400 var(--t-h2)/1.08 var(--font-display);margin-bottom:24px}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 .tag{display:inline-block;padding:6px 12px;border:1px solid var(--tile-3);color:var(--ink);font:600 var(--t-small)/1.3 var(--font-text)}
 .tag-live{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
@@ -245,46 +256,53 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
 .t-result .btn{align-self:stretch}
 
 .site-footer{padding-top:var(--section-gap);padding-bottom:var(--margin)}
-.footer-board .t-contact{grid-column:1/5;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding-top:var(--gap);border-top:1px solid var(--tile-3)}
-.footer-board .t-legal{grid-column:6/13;padding-top:var(--gap);border-top:1px solid var(--tile-3)}
-.footer-board .t-legal p{color:var(--ink-2);font-size:var(--t-small);line-height:1.65;max-width:78ch}
-.footer-board .t-word{grid-column:1/13;container-type:inline-size;overflow:hidden;color:var(--accent)}
+.footer-board > .blk{padding-top:var(--gap);border-top:1px solid var(--tile-3)}
+.footer-board .f-contact{grid-column:1/5;display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.footer-board .f-nav{grid-column:5/8}
+.footer-board .f-legal{grid-column:8/13}
+.f-label{margin-bottom:14px;color:var(--ink-2);font:600 var(--t-small)/1 var(--font-text)}
+.f-nav ul{display:grid;gap:10px}
+.f-nav a{font-weight:600;text-decoration:none;color:var(--ink);transition:color var(--t-hover) var(--ease-out)}
+.f-nav a:hover{color:var(--accent-2)}
+.f-legal p:not(.f-label){color:var(--ink-2);font-size:var(--t-small);line-height:1.65;max-width:70ch}
 .mail{font:600 var(--t-lead)/1.3 var(--font-text);word-break:break-word}
-.wordmark{display:block;margin-left:-.12em;font:700 clamp(1.5rem,7vw,7rem)/.82 var(--font-display);font:700 calc(100cqw / 11.3)/.82 var(--font-display);white-space:nowrap}
-.copy{margin-top:20px;color:var(--ink-2);font-size:var(--t-small)}
+.copy{margin-top:clamp(40px,5vw,72px);color:var(--ink-2);font-size:var(--t-small)}
 
 @media (max-width:1199px){
-  .hacemos-board .t-intro{grid-column:1/13;position:static}
-  .hacemos-board .rows{grid-column:1/13}
   .collab-board .col-left{grid-column:1/13}
   .collab-board .t-result{grid-column:1/13}
+  .hero-board .t-name{grid-column:1/13}
+  .hero-board .t-craft{grid-column:1/13;flex-direction:row;align-items:flex-end;flex-wrap:wrap;gap:20px 32px}
+  .craft-grid{margin-left:0}
+  .recipe-line{justify-content:flex-start}
 }
 
 @media (max-width:959px){
   .nav-toggle{display:flex}
   .site-nav{position:absolute;left:0;right:0;top:var(--header-h);display:grid;gap:0;padding:0 var(--margin) var(--margin);background:var(--ground);border-bottom:1px solid var(--tile-2);visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity var(--t-ui) var(--ease-out),transform var(--t-ui) var(--ease-out),visibility 0s linear var(--t-ui)}
   .site-nav.open{visibility:visible;opacity:1;transform:none;transition-delay:0s}
-  .site-nav a{padding:18px 20px;border-top:1px solid var(--tile-3);font-size:1.0625rem;color:var(--ink)}
+  .site-nav a,.site-nav a:last-child{margin:0;padding:18px 20px;border:0;border-top:1px solid var(--tile-3);font-size:1.0625rem;color:var(--ink)}
   .site-nav a::before{left:6px}
-  .hero-board > .blk,.proy-board > .blk,.proy-board > .panel,.team-board > .blk,.team-board > .panel,.footer-board > .blk{grid-column:1/13;grid-row:auto}
-  .hero-board{row-gap:var(--gap)}
-  .hero-board .t-name,.hero-board .t-craft{margin-bottom:0}
-  .hero-board .t-action{margin-top:0}
-  .hero-board .t-statement{padding-bottom:0}
-  .craft-grid{margin-left:0;width:min(100%,300px)}
-  .recipe-line{justify-content:flex-start}
-  .proy-board .t-head{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+  .site-nav a:last-child:hover{background:none;color:var(--ink)}
+  .team-board > .blk,.team-board > .panel,.footer-board > .blk{grid-column:1/13;grid-row:auto}
   .team-board .t-photo{max-width:420px}
+  .sec-head{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+  .facts,.steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:36px}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proj{display:flex;flex-direction:column;gap:20px}
   .members{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
 @media (max-width:639px){
   :root{--header-h:60px}
-  .ings{grid-template-columns:minmax(0,1fr)}
-  .row{grid-template-columns:minmax(0,1fr);gap:14px}
+  .cards,.steps,.facts,.ings{grid-template-columns:minmax(0,1fr)}
+  .card{display:grid;grid-template-columns:56px minmax(0,1fr);column-gap:18px;row-gap:8px;align-items:start}
+  .card .ico{grid-row:1/3;margin:0}
+  .card h3,.card p{grid-column:2}
   .member-strip{flex-direction:column;align-items:flex-start;gap:10px}
   .member-strip h3{font-size:1rem}
   .t-result .ico-lg{width:96px;height:96px}
+  .t-art{min-height:300px}
 }
 
 @media (max-width:359px){
@@ -293,13 +311,10 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
 
 @media (prefers-reduced-motion:no-preference){
   html{scroll-behavior:smooth}
-  .display .line > span{animation:mask-rise 1000ms var(--ease-expo) backwards}
-  .display .line:nth-child(2) > span{animation-delay:90ms}
-  .t-name .lead{animation:rise 800ms var(--ease-expo) 260ms backwards}
-  .hero-board .t-craft{animation:rise 900ms var(--ease-expo) 120ms backwards}
-  .hero-board .t-statement{animation:rise 900ms var(--ease-expo) 200ms backwards}
-  .hero-board .t-text{animation:rise 900ms var(--ease-expo) 280ms backwards}
-  .hero-board .t-action{animation:rise 900ms var(--ease-expo) 360ms backwards}
+  h1{animation:rise 900ms var(--ease-expo) backwards}
+  .t-name .lead{animation:rise 900ms var(--ease-expo) 120ms backwards}
+  .t-name .actions{animation:rise 900ms var(--ease-expo) 220ms backwards}
+  .hero-board .t-craft{animation:rise 1000ms var(--ease-expo) 160ms backwards}
   .cell{animation:cell-on 600ms var(--ease-out) backwards}
   .cell:nth-child(1){animation-delay:500ms}
   .cell:nth-child(2){animation-delay:580ms}
@@ -323,11 +338,8 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
   .sk-star{animation:twinkle 5s steps(1,end) infinite}
   .sk-cloud-a{animation:drift 60s linear infinite alternate}
   .sk-cloud-b{animation:drift 80s linear -20s infinite alternate-reverse}
-  .t-word .wordmark{animation:mask-up 1100ms var(--ease-expo) backwards}
 
   @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-  @keyframes mask-rise{from{transform:translateY(105%)}to{transform:none}}
-  @keyframes mask-up{from{transform:translateY(40%);opacity:0}to{transform:none;opacity:1}}
   @keyframes shutter{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
   @keyframes cell-on{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
   @keyframes result-in{from{transform:scale(.92)}to{transform:none}}
@@ -368,8 +380,12 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
   <section class="hero wrap" aria-label="Presentación">
     <div class="board hero-board">
       <div class="blk t-name">
-        <h1 class="display"><span class="line"><span>Make MC</span></span> <span class="line"><span>Studio</span></span></h1>
-        <p class="lead">Make MC Studio es el proyecto de NarellYT, dedicado a crear contenido para Minecraft: modpacks, texturas, mods, servidores y eventos.</p>
+        <h1>Creamos modpacks, texturas, servidores y eventos según tu <em>imaginación</em>.</h1>
+        <p class="lead">Un proyecto de NarellYT dedicado a crear contenido para Minecraft.</p>
+        <div class="actions">
+          <a href="#proyectos" class="btn">Ver proyectos</a>
+          <a href="#colabora" class="btn btn-link">Quiero colaborar</a>
+        </div>
       </div>
 
       <div class="blk t-craft">
@@ -388,114 +404,106 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
           <span class="chip-result lit" id="craftResult">Diversión</span>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="blk t-statement">
-        <p class="statement">Creamos modpacks, texturas, servidores y eventos según tu imaginación.</p>
-      </div>
+  <section class="wrap sec-tight" aria-label="Datos clave">
+    <ul class="facts">
+      <li class="fact rv"><strong>CurseForge y Modrinth</strong><span>Nuestros modpacks se publicarán en ambas plataformas.</span></li>
+      <li class="fact rv"><strong>Premium y no premium</strong><span>DownTown estará abierto para todos los jugadores.</span></li>
+      <li class="fact rv"><strong>Blockbench</strong><span>Modelamos y animamos bloques, ítems y criaturas desde cero.</span></li>
+      <li class="fact rv"><strong>Abierto a colaborar</strong><span>Buscamos gente con ganas de aprender: no hace falta ser experto.</span></li>
+    </ul>
+  </section>
 
-      <div class="blk t-text">
-        <p>Trabajamos con el apoyo de un grupo de amigos y con la ayuda de creadores externos, sobre todo en las texturas. Nos centramos en crear experiencias de aventura, tecnología, magia y rol: todo lo que permitan tu imaginación y nuestro tiempo. Echa un vistazo a lo que estamos preparando y, si quieres crear con nosotros, ¡no dudes en ponerte en contacto!</p>
-      </div>
-
-      <div class="blk t-action">
-        <a href="#proyectos" class="btn">Ver proyectos</a>
-        <a href="#colabora" class="btn btn-link">Quiero colaborar</a>
-      </div>
+  <section class="wrap sec" aria-label="Sobre el estudio">
+    <div class="manifesto rv">
+      <p><span>Trabajamos con el apoyo de un grupo de amigos y con la ayuda de creadores externos, sobre todo en las texturas.</span> Nos centramos en crear experiencias de aventura, tecnología, magia y rol: todo lo que permitan tu imaginación y nuestro tiempo. Echa un vistazo a lo que estamos preparando y, si quieres crear con nosotros, ¡no dudes en ponerte en contacto!</p>
     </div>
   </section>
 
   <section class="wrap sec" id="hacemos">
-    <div class="board hacemos-board">
-      <div class="blk t-intro rv">
-        <h2>Qué hacemos</h2>
-        <p>Make MC Studio es mucho más que modpacks. Esto es lo que hacemos para que cada proyecto sea cómodo de jugar y divertido.</p>
-      </div>
-
-      <ul class="rows">
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-modpacks"/></svg>
-          <div>
-            <h3>Modpacks</h3>
-            <p>Reunimos mods, ajustamos su configuración y los probamos para que el modpack se juegue sin problemas, ya sea de supervivencia, aventura o magia.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-texturas"/></svg>
-          <div>
-            <h3>Paquetes de texturas</h3>
-            <p>Diseñamos paquetes de texturas que cambian el aspecto de los bloques, los ítems y los menús del juego, o que retocan detalles como la pantalla de carga. Contamos con la ayuda de creadores externos para las texturas.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mods"/></svg>
-          <div>
-            <h3>Mods y datapacks</h3>
-            <p>Creamos mods y datapacks propios para añadir mecánicas o contenido cuando ningún mod existente hace lo que un proyecto necesita.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-blockbench"/></svg>
-          <div>
-            <h3>Modelado con Blockbench</h3>
-            <p>Cuando un proyecto necesita algo desde cero, modelamos y animamos bloques, ítems y criaturas con Blockbench.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-servidores"/></svg>
-          <div>
-            <h3>Servidores</h3>
-            <p>Montamos y configuramos servidores, incluidos los de roleplay, para que cada comunidad tenga un lugar estable donde jugar.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-eventos"/></svg>
-          <div>
-            <h3>Eventos</h3>
-            <p>Organizamos eventos dentro de Minecraft, abiertos a todos, para jugar, compartir y divertirnos juntos.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-creadores"/></svg>
-          <div>
-            <h3>Creadores externos</h3>
-            <p>Colaboramos con creadores y artistas externos que nos ayudan, sobre todo con las texturas, para que cada proyecto tenga un mejor acabado.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-traileres"/></svg>
-          <div>
-            <h3>Tráileres y contenido</h3>
-            <p>Preparamos capturas, tráileres y contenido para presentar cada proyecto en nuestras redes.</p>
-          </div>
-        </li>
-        <li class="row rv">
-          <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-encargos"/></svg>
-          <div>
-            <h3>Encargos a medida</h3>
-            <p>¿Tienes un servidor o una comunidad? Diseñamos un modpack pensado solo para ti.</p>
-          </div>
-        </li>
-      </ul>
+    <div class="sec-head rv">
+      <h2>Qué hacemos</h2>
+      <p>Es mucho más que modpacks. Esto es lo que hacemos para que cada proyecto sea cómodo de jugar y divertido.</p>
     </div>
+    <ul class="cards">
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-modpacks"/></svg>
+        <h3>Modpacks</h3>
+        <p>Reunimos mods, ajustamos su configuración y los probamos para que el modpack se juegue sin problemas, ya sea de supervivencia, aventura o magia.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-texturas"/></svg>
+        <h3>Paquetes de texturas</h3>
+        <p>Diseñamos paquetes de texturas que cambian el aspecto de los bloques, los ítems y los menús del juego, o que retocan detalles como la pantalla de carga. Contamos con la ayuda de creadores externos para las texturas.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-mods"/></svg>
+        <h3>Mods y datapacks</h3>
+        <p>Creamos mods y datapacks propios para añadir mecánicas o contenido cuando ningún mod existente hace lo que un proyecto necesita.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-blockbench"/></svg>
+        <h3>Modelado con Blockbench</h3>
+        <p>Cuando un proyecto necesita algo desde cero, modelamos y animamos bloques, ítems y criaturas con Blockbench.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-servidores"/></svg>
+        <h3>Servidores</h3>
+        <p>Montamos y configuramos servidores, incluidos los de roleplay, para que cada comunidad tenga un lugar estable donde jugar.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-eventos"/></svg>
+        <h3>Eventos</h3>
+        <p>Organizamos eventos dentro de Minecraft, abiertos a todos, para jugar, compartir y divertirnos juntos.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-creadores"/></svg>
+        <h3>Creadores externos</h3>
+        <p>Colaboramos con creadores y artistas externos que nos ayudan, sobre todo con las texturas, para que cada proyecto tenga un mejor acabado.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-traileres"/></svg>
+        <h3>Tráileres y contenido</h3>
+        <p>Preparamos capturas, tráileres y contenido para presentar cada proyecto en nuestras redes.</p>
+      </li>
+      <li class="card rv">
+        <svg class="ico" aria-hidden="true" focusable="false"><use href="#i-encargos"/></svg>
+        <h3>Encargos a medida</h3>
+        <p>¿Tienes un servidor o una comunidad? Diseñamos un modpack pensado solo para ti.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="wrap sec" id="proceso">
+    <div class="sec-head rv">
+      <h2>Cómo trabajamos</h2>
+      <p>Cada proyecto sigue el mismo camino, de la idea a las manos de quien lo juega.</p>
+    </div>
+    <ol class="steps">
+      <li class="step rv"><span class="step-n">01</span><h3>Idea</h3><p>Partimos de una idea nuestra o de lo que la comunidad nos pide y nos sugiere.</p></li>
+      <li class="step rv"><span class="step-n">02</span><h3>Creación</h3><p>Reunimos mods y, cuando hace falta, creamos texturas, modelos y mods propios.</p></li>
+      <li class="step rv"><span class="step-n">03</span><h3>Pruebas</h3><p>Ajustamos la configuración y probamos el proyecto para que se juegue sin problemas.</p></li>
+      <li class="step rv"><span class="step-n">04</span><h3>Publicación</h3><p>Lo publicamos en CurseForge y Modrinth y lo presentamos con capturas y tráileres.</p></li>
+    </ol>
   </section>
 
   <section class="wrap sec" id="proyectos">
-    <div class="board proy-board">
-      <div class="blk t-head rv">
-        <h2>Proyectos</h2>
-        <p>Este es el proyecto en el que estamos trabajando ahora. Cuando esté listo, aquí encontrarás toda la información para unirte.</p>
-      </div>
-      <figure class="panel t-art rv rv-shutter">
-        <svg class="skyline" viewBox="0 0 160 90" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" role="img" aria-label="Ilustración de una ciudad de noche con ventanas iluminadas"><path class="sk-star" d="M73 28h1v1h-1zM92 19h1v1h-1zM146 10h1v1h-1zM36 22h1v1h-1zM118 16h1v1h-1zM8 34h1v1h-1zM70 17h1v1h-1zM38 35h1v1h-1zM14 30h1v1h-1zM31 24h1v1h-1zM29 30h1v1h-1zM139 30h1v1h-1zM96 12h1v1h-1zM52 16h1v1h-1zM123 18h1v1h-1zM47 32h1v1h-1zM4 34h1v1h-1zM122 27h1v1h-1zM11 15h1v1h-1zM59 18h1v1h-1zM90 27h1v1h-1zM135 26h1v1h-1zM42 22h1v1h-1zM59 12h1v1h-1zM107 33h1v1h-1zM101 14h1v1h-1z"/><path class="sk-moon" d="M129 12h4v1h-4zM127 13h8v1h-8zM126 14h10v4h-10zM127 18h8v1h-8zM129 19h4v1h-4z"/><path class="sk-crater" d="M129 15h2v2h-2zM132 17h2v1h-2z"/><g class="sk-cloud sk-cloud-a"><path d="M10 20h16v3h-16zM14 17h10v3h-10zM8 23h22v2h-22z"/></g><g class="sk-cloud sk-cloud-b"><path d="M80 30h14v3h-14zM84 27h8v3h-8zM78 33h20v2h-20z"/></g><path class="sk-back" d="M0 35h12v43h-12zM13 36h12v42h-12zM27 47h10v31h-10zM39 32h12v46h-12zM53 47h15v31h-15zM68 43h12v35h-12zM80 35h9v43h-9zM91 51h14v27h-14zM107 38h12v40h-12zM121 33h14v45h-14zM137 33h10v45h-10zM147 36h15v42h-15z"/><path class="sk-front" d="M3 46h14v32h-14zM5 43h10v3h-10zM21 22h18v56h-18zM40 19h14v59h-14zM57 24h18v54h-18zM59 21h14v3h-14zM79 37h18v41h-18zM99 47h14v31h-14zM115 26h18v52h-18zM117 23h14v3h-14zM135 17h14v61h-14zM153 46h18v32h-18z"/><path class="sk-dim" d="M10 50h2v3h-2zM10 56h2v3h-2zM6 62h2v3h-2zM10 62h2v3h-2zM6 68h2v3h-2zM10 68h2v3h-2zM24 26h2v3h-2zM28 26h2v3h-2zM32 26h2v3h-2zM28 32h2v3h-2zM24 38h2v3h-2zM24 44h2v3h-2zM28 44h2v3h-2zM24 50h2v3h-2zM32 50h2v3h-2zM28 56h2v3h-2zM32 62h2v3h-2zM24 68h2v3h-2zM32 68h2v3h-2zM47 29h2v3h-2zM43 41h2v3h-2zM43 47h2v3h-2zM47 47h2v3h-2zM43 59h2v3h-2zM47 59h2v3h-2zM43 65h2v3h-2zM64 28h2v3h-2zM68 34h2v3h-2zM60 40h2v3h-2zM64 40h2v3h-2zM64 46h2v3h-2zM64 52h2v3h-2zM60 58h2v3h-2zM64 58h2v3h-2zM68 58h2v3h-2zM64 64h2v3h-2zM60 70h2v3h-2zM68 70h2v3h-2zM82 41h2v3h-2zM90 41h2v3h-2zM82 47h2v3h-2zM86 47h2v3h-2zM82 53h2v3h-2zM90 53h2v3h-2zM90 59h2v3h-2zM90 65h2v3h-2zM82 71h2v3h-2zM86 71h2v3h-2zM90 71h2v3h-2zM106 51h2v3h-2zM102 63h2v3h-2zM118 30h2v3h-2zM122 36h2v3h-2zM126 36h2v3h-2zM122 48h2v3h-2zM126 48h2v3h-2zM122 54h2v3h-2zM126 54h2v3h-2zM118 60h2v3h-2zM122 60h2v3h-2zM126 60h2v3h-2zM118 66h2v3h-2zM126 66h2v3h-2zM138 21h2v3h-2zM142 21h2v3h-2zM138 27h2v3h-2zM138 33h2v3h-2zM138 39h2v3h-2zM138 45h2v3h-2zM138 51h2v3h-2zM138 57h2v3h-2zM142 57h2v3h-2zM138 69h2v3h-2zM156 50h2v3h-2zM160 56h2v3h-2zM156 62h2v3h-2zM164 62h2v3h-2zM156 68h2v3h-2z"/><path class="sk-win" d="M6 50h2v3h-2zM24 32h2v3h-2zM32 38h2v3h-2zM32 44h2v3h-2zM24 56h2v3h-2zM24 62h2v3h-2zM28 62h2v3h-2zM28 68h2v3h-2zM43 53h2v3h-2zM47 65h2v3h-2zM43 71h2v3h-2zM68 28h2v3h-2zM68 40h2v3h-2zM60 46h2v3h-2zM68 46h2v3h-2zM60 64h2v3h-2zM90 47h2v3h-2zM82 59h2v3h-2zM82 65h2v3h-2zM102 51h2v3h-2zM106 57h2v3h-2zM106 63h2v3h-2zM106 69h2v3h-2zM122 42h2v3h-2zM118 48h2v3h-2zM122 66h2v3h-2zM142 27h2v3h-2zM142 33h2v3h-2zM138 63h2v3h-2zM142 69h2v3h-2zM160 50h2v3h-2zM156 56h2v3h-2z"/><path class="sk-win sk-win-1" d="M28 50h2v3h-2zM43 35h2v3h-2zM47 35h2v3h-2zM47 53h2v3h-2zM60 34h2v3h-2zM68 52h2v3h-2zM86 41h2v3h-2zM86 53h2v3h-2zM86 65h2v3h-2zM118 36h2v3h-2zM142 39h2v3h-2zM142 45h2v3h-2zM142 51h2v3h-2zM164 50h2v3h-2z"/><path class="sk-win sk-win-2" d="M6 56h2v3h-2zM32 32h2v3h-2zM43 23h2v3h-2zM47 23h2v3h-2zM47 71h2v3h-2zM60 28h2v3h-2zM64 34h2v3h-2zM86 59h2v3h-2zM102 69h2v3h-2zM118 42h2v3h-2zM142 63h2v3h-2zM164 56h2v3h-2z"/><path class="sk-win sk-win-3" d="M32 56h2v3h-2zM43 29h2v3h-2zM60 52h2v3h-2zM68 64h2v3h-2zM102 57h2v3h-2zM126 42h2v3h-2zM118 54h2v3h-2z"/><path class="sk-win sk-win-4" d="M28 38h2v3h-2zM47 41h2v3h-2zM64 70h2v3h-2zM122 30h2v3h-2zM126 30h2v3h-2zM160 62h2v3h-2zM160 68h2v3h-2zM164 68h2v3h-2z"/><path class="sk-road" d="M0 78h160v12h-160z"/><path class="sk-lamp" d="M14 66h1v12h-1zM12 65h5v1h-5zM52 66h1v12h-1zM50 65h5v1h-5zM90 66h1v12h-1zM88 65h5v1h-5zM128 66h1v12h-1zM126 65h5v1h-5z"/><path class="sk-dash" d="M4 85h8v1h-8zM24 85h8v1h-8zM44 85h8v1h-8zM64 85h8v1h-8zM84 85h8v1h-8zM104 85h8v1h-8zM124 85h8v1h-8zM144 85h8v1h-8z"/></svg>
-      </figure>
-      <article class="blk t-proj rv">
-        <div>
-          <h3 class="proj-name">DownTown</h3>
-          <p>Un servidor roleplay de Minecraft en el que podrás vivir tu propia historia. Estará abierto para todos los jugadores, tanto premium como no premium.</p>
-        </div>
-        <div class="tags"><span class="tag">Servidor roleplay</span><span class="tag tag-live">Próximamente</span></div>
-      </article>
+    <div class="sec-head rv">
+      <h2>Proyectos</h2>
+      <p>Este es el proyecto en el que estamos trabajando ahora. Cuando esté listo, aquí encontrarás toda la información para unirte.</p>
     </div>
+    <figure class="panel t-art rv rv-shutter">
+      <svg class="skyline" viewBox="0 0 160 90" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges" role="img" aria-label="Ilustración de una ciudad de noche con ventanas iluminadas"><path class="sk-star" d="M73 28h1v1h-1zM92 19h1v1h-1zM146 10h1v1h-1zM36 22h1v1h-1zM118 16h1v1h-1zM8 34h1v1h-1zM70 17h1v1h-1zM38 35h1v1h-1zM14 30h1v1h-1zM31 24h1v1h-1zM29 30h1v1h-1zM139 30h1v1h-1zM96 12h1v1h-1zM52 16h1v1h-1zM123 18h1v1h-1zM47 32h1v1h-1zM4 34h1v1h-1zM122 27h1v1h-1zM11 15h1v1h-1zM59 18h1v1h-1zM90 27h1v1h-1zM135 26h1v1h-1zM42 22h1v1h-1zM59 12h1v1h-1zM107 33h1v1h-1zM101 14h1v1h-1z"/><path class="sk-moon" d="M129 12h4v1h-4zM127 13h8v1h-8zM126 14h10v4h-10zM127 18h8v1h-8zM129 19h4v1h-4z"/><path class="sk-crater" d="M129 15h2v2h-2zM132 17h2v1h-2z"/><g class="sk-cloud sk-cloud-a"><path d="M10 20h16v3h-16zM14 17h10v3h-10zM8 23h22v2h-22z"/></g><g class="sk-cloud sk-cloud-b"><path d="M80 30h14v3h-14zM84 27h8v3h-8zM78 33h20v2h-20z"/></g><path class="sk-back" d="M0 35h12v43h-12zM13 36h12v42h-12zM27 47h10v31h-10zM39 32h12v46h-12zM53 47h15v31h-15zM68 43h12v35h-12zM80 35h9v43h-9zM91 51h14v27h-14zM107 38h12v40h-12zM121 33h14v45h-14zM137 33h10v45h-10zM147 36h15v42h-15z"/><path class="sk-front" d="M3 46h14v32h-14zM5 43h10v3h-10zM21 22h18v56h-18zM40 19h14v59h-14zM57 24h18v54h-18zM59 21h14v3h-14zM79 37h18v41h-18zM99 47h14v31h-14zM115 26h18v52h-18zM117 23h14v3h-14zM135 17h14v61h-14zM153 46h18v32h-18z"/><path class="sk-dim" d="M10 50h2v3h-2zM10 56h2v3h-2zM6 62h2v3h-2zM10 62h2v3h-2zM6 68h2v3h-2zM10 68h2v3h-2zM24 26h2v3h-2zM28 26h2v3h-2zM32 26h2v3h-2zM28 32h2v3h-2zM24 38h2v3h-2zM24 44h2v3h-2zM28 44h2v3h-2zM24 50h2v3h-2zM32 50h2v3h-2zM28 56h2v3h-2zM32 62h2v3h-2zM24 68h2v3h-2zM32 68h2v3h-2zM47 29h2v3h-2zM43 41h2v3h-2zM43 47h2v3h-2zM47 47h2v3h-2zM43 59h2v3h-2zM47 59h2v3h-2zM43 65h2v3h-2zM64 28h2v3h-2zM68 34h2v3h-2zM60 40h2v3h-2zM64 40h2v3h-2zM64 46h2v3h-2zM64 52h2v3h-2zM60 58h2v3h-2zM64 58h2v3h-2zM68 58h2v3h-2zM64 64h2v3h-2zM60 70h2v3h-2zM68 70h2v3h-2zM82 41h2v3h-2zM90 41h2v3h-2zM82 47h2v3h-2zM86 47h2v3h-2zM82 53h2v3h-2zM90 53h2v3h-2zM90 59h2v3h-2zM90 65h2v3h-2zM82 71h2v3h-2zM86 71h2v3h-2zM90 71h2v3h-2zM106 51h2v3h-2zM102 63h2v3h-2zM118 30h2v3h-2zM122 36h2v3h-2zM126 36h2v3h-2zM122 48h2v3h-2zM126 48h2v3h-2zM122 54h2v3h-2zM126 54h2v3h-2zM118 60h2v3h-2zM122 60h2v3h-2zM126 60h2v3h-2zM118 66h2v3h-2zM126 66h2v3h-2zM138 21h2v3h-2zM142 21h2v3h-2zM138 27h2v3h-2zM138 33h2v3h-2zM138 39h2v3h-2zM138 45h2v3h-2zM138 51h2v3h-2zM138 57h2v3h-2zM142 57h2v3h-2zM138 69h2v3h-2zM156 50h2v3h-2zM160 56h2v3h-2zM156 62h2v3h-2zM164 62h2v3h-2zM156 68h2v3h-2z"/><path class="sk-win" d="M6 50h2v3h-2zM24 32h2v3h-2zM32 38h2v3h-2zM32 44h2v3h-2zM24 56h2v3h-2zM24 62h2v3h-2zM28 62h2v3h-2zM28 68h2v3h-2zM43 53h2v3h-2zM47 65h2v3h-2zM43 71h2v3h-2zM68 28h2v3h-2zM68 40h2v3h-2zM60 46h2v3h-2zM68 46h2v3h-2zM60 64h2v3h-2zM90 47h2v3h-2zM82 59h2v3h-2zM82 65h2v3h-2zM102 51h2v3h-2zM106 57h2v3h-2zM106 63h2v3h-2zM106 69h2v3h-2zM122 42h2v3h-2zM118 48h2v3h-2zM122 66h2v3h-2zM142 27h2v3h-2zM142 33h2v3h-2zM138 63h2v3h-2zM142 69h2v3h-2zM160 50h2v3h-2zM156 56h2v3h-2z"/><path class="sk-win sk-win-1" d="M28 50h2v3h-2zM43 35h2v3h-2zM47 35h2v3h-2zM47 53h2v3h-2zM60 34h2v3h-2zM68 52h2v3h-2zM86 41h2v3h-2zM86 53h2v3h-2zM86 65h2v3h-2zM118 36h2v3h-2zM142 39h2v3h-2zM142 45h2v3h-2zM142 51h2v3h-2zM164 50h2v3h-2z"/><path class="sk-win sk-win-2" d="M6 56h2v3h-2zM32 32h2v3h-2zM43 23h2v3h-2zM47 23h2v3h-2zM47 71h2v3h-2zM60 28h2v3h-2zM64 34h2v3h-2zM86 59h2v3h-2zM102 69h2v3h-2zM118 42h2v3h-2zM142 63h2v3h-2zM164 56h2v3h-2z"/><path class="sk-win sk-win-3" d="M32 56h2v3h-2zM43 29h2v3h-2zM60 52h2v3h-2zM68 64h2v3h-2zM102 57h2v3h-2zM126 42h2v3h-2zM118 54h2v3h-2z"/><path class="sk-win sk-win-4" d="M28 38h2v3h-2zM47 41h2v3h-2zM64 70h2v3h-2zM122 30h2v3h-2zM126 30h2v3h-2zM160 62h2v3h-2zM160 68h2v3h-2zM164 68h2v3h-2z"/><path class="sk-road" d="M0 78h160v12h-160z"/><path class="sk-lamp" d="M14 66h1v12h-1zM12 65h5v1h-5zM52 66h1v12h-1zM50 65h5v1h-5zM90 66h1v12h-1zM88 65h5v1h-5zM128 66h1v12h-1zM126 65h5v1h-5z"/><path class="sk-dash" d="M4 85h8v1h-8zM24 85h8v1h-8zM44 85h8v1h-8zM64 85h8v1h-8zM84 85h8v1h-8zM104 85h8v1h-8zM124 85h8v1h-8zM144 85h8v1h-8z"/></svg>
+    </figure>
+    <article class="proj blk rv">
+      <div class="proj-main">
+        <h3 class="proj-name">DownTown</h3>
+        <div class="tags"><span class="tag">Servidor roleplay</span><span class="tag tag-live">Próximamente</span></div>
+      </div>
+      <p>Un servidor roleplay de Minecraft en el que podrás vivir tu propia historia. Estará abierto para todos los jugadores, tanto premium como no premium.</p>
+    </article>
   </section>
 
   <section class="wrap sec" id="equipo">
@@ -606,8 +614,9 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
 
 <footer class="site-footer wrap">
   <div class="board footer-board">
-    <div class="blk t-contact">
-      <p>Contacto: <a class="mail" href="mailto:makemcstudio@gmail.com">makemcstudio@gmail.com</a></p>
+    <div class="blk f-contact">
+      <p class="f-label">Contacto</p>
+      <a class="mail" href="mailto:makemcstudio@gmail.com">makemcstudio@gmail.com</a>
       <div class="socials">
         <a class="social-icon" href="https://www.youtube.com/@MakeMCStudio" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="youtube.svg" alt=""></a>
         <a class="social-icon" href="https://x.com/MakeMCStudio" target="_blank" rel="noopener noreferrer" aria-label="X"><img src="twitter-x.svg" alt=""></a>
@@ -615,12 +624,20 @@ h3{font:700 var(--t-h3)/1.25 var(--font-text)}
         <a class="social-icon" href="https://www.instagram.com/makemcstudio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="instagram.svg" alt=""></a>
       </div>
     </div>
-    <div class="blk t-legal">
+    <nav class="blk f-nav" aria-label="Navegación del pie">
+      <p class="f-label">Navegación</p>
+      <ul>
+        <li><a href="#hacemos">Qué hacemos</a></li>
+        <li><a href="#proceso">Cómo trabajamos</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#colabora">Colabora</a></li>
+      </ul>
+    </nav>
+    <div class="blk f-legal">
+      <p class="f-label">Aviso legal</p>
       <p>Este sitio y los proyectos que se muestran en él son creaciones de fans, hechas de forma independiente. No son productos oficiales de Minecraft, ni están aprobados por Mojang ni por Microsoft, ni asociados con estas empresas. «Minecraft» es una marca registrada de Mojang Synergies AB.</p>
       <p>Todos los mods incluidos en los proyectos se distribuyen de acuerdo con las licencias de sus creadores originales. Los créditos correspondientes están detallados en sus respectivas páginas de descarga.</p>
-    </div>
-    <div class="blk t-word" aria-hidden="true">
-      <span class="wordmark">Make MC Studio</span>
     </div>
   </div>
   <p class="copy">© 2026 Make MC Studio. All rights reserved.</p>
