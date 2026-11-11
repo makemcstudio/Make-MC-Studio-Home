@@ -11,9 +11,13 @@
   var nav = document.getElementById('siteNav');
   var navLinks = nav ? nav.querySelectorAll('a') : [];
 
+  function label(key, fallback) {
+    return window.MCS && window.MCS.t(key) || fallback;
+  }
+
   function closeNav() {
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Abrir menú');
+    toggle.setAttribute('aria-label', label('menu_open', 'Abrir menú'));
     nav.classList.remove('open');
   }
 
@@ -21,10 +25,14 @@
     toggle.addEventListener('click', function () {
       var open = toggle.getAttribute('aria-expanded') !== 'true';
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      toggle.setAttribute('aria-label', open ? label('menu_close', 'Cerrar menú') : label('menu_open', 'Abrir menú'));
       nav.classList.toggle('open', open);
     });
     navLinks.forEach(function (link) { link.addEventListener('click', closeNav); });
+    document.addEventListener('mcs:lang', function () {
+      var open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-label', open ? label('menu_close', 'Cerrar menú') : label('menu_open', 'Abrir menú'));
+    });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && nav.classList.contains('open')) {
         closeNav();
