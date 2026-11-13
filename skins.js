@@ -618,6 +618,8 @@
 
   var SCENES = {
     xmas: {
+      logo: { n: 'hat', cls: 'tilt-l' },
+      air: [[6,'spark','b',0],[27,'spark','a',1],[52,'spark','b',2],[73,'spark','a',3],[97,'spark','b',4]],
       hero: [
         { n: 'tree', x: 3 }, { n: 'gift', v: 'a', x: 11.5 }, { n: 'gift', v: 'b', x: 14, cls: 'x', s: 0.8 },
         { n: 'snowman', x: 23, cls: 'x' }, { n: 'cane', x: 33 }, { n: 'tree', x: 44, cls: 'x', s: 0.8 },
@@ -642,6 +644,8 @@
       }
     },
     newyear: {
+      logo: { n: 'party', cls: 'tilt-r' },
+      air: [[8,'spark','a',0],[30,'spark','b',1],[55,'spark','a',2],[78,'spark','b',3]],
       hero: [
         { n: 'clock', x: 4 }, { n: 'burst', v: 'a', x: 14, cls: 'x pop', b: 22 }, { n: 'party', x: 24 },
         { n: 'balloon', v: 'a', x: 32, cls: 'bob' }, { n: 'balloon', v: 'c', x: 36, cls: 'bob x', d: 1 }, { n: 'burst', v: 'c', x: 48, cls: 'pop', b: 26, d: 1.3 },
@@ -665,6 +669,8 @@
       }
     },
     halloween: {
+      logo: { n: 'bat' },
+      air: [[20,'bat','',0],[52,'bat','',1],[84,'bat','',2]],
       hero: [
         { n: 'pumpkin', x: 3 }, { n: 'tomb', x: 14 }, { n: 'ghost', x: 24, cls: 'bob x' }, { n: 'pumpkin', x: 34, cls: 'x', s: 0.8 },
         { n: 'bat', x: 46, b: 24, cls: 'bob' }, { n: 'tomb', x: 56, cls: 'x' }, { n: 'pumpkin', x: 66 },
@@ -687,6 +693,8 @@
       }
     },
     valentine: {
+      logo: { n: 'heartl', v: 'a' },
+      air: [[10,'heartl','b',0],[38,'heartl','a',1],[62,'heartl','b',2],[90,'heartl','a',3]],
       hero: [
         { n: 'heart', v: 'a', x: 4, cls: 'bob' }, { n: 'rose', x: 13 }, { n: 'letter', x: 21, cls: 'x' }, { n: 'heartl', v: 'b', x: 32, b: 20, cls: 'bob x', d: 1 },
         { n: 'arrow', x: 40 }, { n: 'heart', v: 'b', x: 52, cls: 'bob', d: 0.7 }, { n: 'rose', x: 62, cls: 'x' },
@@ -708,6 +716,8 @@
       }
     },
     muertos: {
+      logo: { n: 'flower', v: 'a' },
+      air: [[12,'butterfly','',0],[44,'butterfly','',1],[78,'butterfly','',2]],
       hero: [
         { n: 'flower', v: 'a', x: 3 }, { n: 'candle', x: 10, cls: 'flick' }, { n: 'skull', x: 15 }, { n: 'flower', v: 'b', x: 24, cls: 'x' },
         { n: 'altar', x: 34, cls: 'x' }, { n: 'candle', x: 52, cls: 'flick x', d: 0.8 }, { n: 'butterfly', x: 58, b: 26, cls: 'bob' },
@@ -731,6 +741,8 @@
       }
     },
     mx: {
+      logo: { n: 'mxflag', cls: 'small' },
+      air: [[10,'spark','a',0],[40,'spark','b',1],[70,'spark','c',2]],
       hero: [
         { n: 'mxflag', x: 3 }, { n: 'cactus', x: 11, cls: 'x' }, { n: 'bell', x: 18 }, { n: 'burst', v: 'd', x: 30, cls: 'pop x', b: 20 },
         { n: 'mxflag', x: 42, cls: 'x' }, { n: 'burst', v: 'e', x: 52, cls: 'pop', b: 24, d: 1.2 }, { n: 'bell', x: 64, cls: 'x' },
@@ -753,6 +765,8 @@
       }
     },
     kings: {
+      logo: { n: 'crown', cls: 'tilt-l' },
+      air: [[8,'spark','a',0],[30,'spark','b',1],[56,'spark','a',2],[80,'spark','b',3]],
       hero: [
         { n: 'crown', x: 3 }, { n: 'gift', v: 'c', x: 11 }, { n: 'camel', x: 20, cls: 'x' }, { n: 'bstar', x: 34, b: 20, cls: 'tw' },
         { n: 'rosca', x: 46 }, { n: 'camel', x: 56, cls: 'x', flip: true }, { n: 'gift', v: 'a', x: 70 }, { n: 'crown', x: 78, cls: 'x' },
@@ -775,6 +789,8 @@
       }
     },
     easter: {
+      logo: { n: 'bunny' },
+      air: [[14,'butterfly','',0],[48,'spark','c',1],[82,'butterfly','',2]],
       hero: [
         { n: 'tulip', x: 3 }, { n: 'egg', v: 'a', x: 9 }, { n: 'chick', x: 16, cls: 'bob' }, { n: 'bunny', x: 25, cls: 'x' },
         { n: 'egg', v: 'b', x: 36, cls: 'x' }, { n: 'tulip', x: 44 }, { n: 'egg', v: 'c', x: 52 }, { n: 'chick', x: 62, cls: 'bob x', d: 1 },
@@ -798,6 +814,8 @@
       }
     },
     carnival: {
+      logo: { n: 'mask', cls: 'tilt-r' },
+      air: [[10,'spark','c',0],[36,'spark','a',1],[60,'spark','b',2],[86,'spark','c',3]],
       hero: [
         { n: 'mask', x: 3 }, { n: 'balloon', v: 'a', x: 14, cls: 'bob' }, { n: 'balloon', v: 'b', x: 18, cls: 'bob x', d: 1 }, { n: 'burst', v: 'b', x: 28, cls: 'pop x', b: 22 },
         { n: 'mask', x: 40, cls: 'x' }, { n: 'balloon', v: 'c', x: 52, cls: 'bob', d: 0.6 }, { n: 'spark', v: 'c', x: 60, b: 24, cls: 'tw' },
@@ -819,6 +837,8 @@
       }
     },
     nation: {
+      logo: { n: 'star' },
+      air: [[10,'spark','a',0],[40,'spark','b',1],[70,'spark','c',2]],
       hero: [
         { n: 'flag', x: 3 }, { n: 'burst', v: 'a', x: 12, cls: 'pop x', b: 20 }, { n: 'flagh', x: 22, cls: 'x' }, { n: 'burst', v: 'b', x: 34, cls: 'pop', b: 24, d: 1 },
         { n: 'flag', x: 46 }, { n: 'burst', v: 'c', x: 58, cls: 'pop x', b: 18, d: 2 }, { n: 'flagh', x: 70 }, { n: 'burst', v: 'e', x: 80, cls: 'pop', b: 22, d: 1.4 }, { n: 'flag', x: 92 }
@@ -881,6 +901,9 @@
       var top = node('div', 'scene scene-hero');
       var topIn = node('div', 'scene-in');
       scene.hero.forEach(function (s) { put(topIn, s); });
+      scene.air.forEach(function (a, i) {
+        put(topIn, { n: a[1], v: a[2], x: a[0], b: 22 + (i % 3) * 8, cls: 'air' + (i > 2 ? ' x' : ''), d: a[3] * 0.7 });
+      });
       top.appendChild(topIn);
       ticker.parentNode.insertBefore(top, ticker);
     }
@@ -899,6 +922,18 @@
       var topper = node('div', 'skin-topper');
       put(topper, { n: scene.topper.n, v: scene.topper.v, x: 0, cls: scene.topper.cls });
       craft.appendChild(topper);
+    }
+
+    if (craft) {
+      var halo = node('div', 'skin-halo');
+      craft.insertBefore(halo, craft.firstChild);
+    }
+
+    var brand = document.querySelector('.site-header .brand');
+    if (brand && scene.logo) {
+      var mark = node('span', 'skin-logo');
+      put(mark, { n: scene.logo.n, v: scene.logo.v, x: 0, cls: scene.logo.cls });
+      brand.appendChild(mark);
     }
 
     var result = document.querySelector('.t-result');
