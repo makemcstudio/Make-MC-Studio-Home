@@ -327,20 +327,13 @@
         '....YY....'
       ]);
     },
-    flag: function () {
-      var c = canvas(10, 16);
+    pennant: function () {
+      var c = canvas(12, 16);
       c.rect(0, 0, 1, 16, 'K2');
-      c.rect(1, 1, 3, 7, 'F1');
-      c.rect(4, 1, 3, 7, 'F2');
-      c.rect(7, 1, 3, 7, 'F3');
-      return c;
-    },
-    flagh: function () {
-      var c = canvas(10, 16);
-      c.rect(0, 0, 1, 16, 'K2');
-      c.rect(1, 1, 9, 3, 'F1');
-      c.rect(1, 4, 9, 2, 'F2');
-      c.rect(1, 6, 9, 2, 'F3');
+      for (var r = 0; r < 9; r++) {
+        var w = 11 - Math.abs(r - 4) * 2;
+        c.rect(1, 1 + r, w, 1, r < 3 ? 'F1' : r < 6 ? 'F2' : 'F3');
+      }
       return c;
     },
     mxflag: function () {
@@ -840,22 +833,22 @@
       logo: { n: 'star' },
       air: [[10,'spark','a',0],[40,'spark','b',1],[70,'spark','c',2]],
       hero: [
-        { n: 'flag', x: 3 }, { n: 'burst', v: 'a', x: 12, cls: 'pop x', b: 20 }, { n: 'flagh', x: 22, cls: 'x' }, { n: 'burst', v: 'b', x: 34, cls: 'pop', b: 24, d: 1 },
-        { n: 'flag', x: 46 }, { n: 'burst', v: 'c', x: 58, cls: 'pop x', b: 18, d: 2 }, { n: 'flagh', x: 70 }, { n: 'burst', v: 'e', x: 80, cls: 'pop', b: 22, d: 1.4 }, { n: 'flag', x: 92 }
+        { n: 'pennant', x: 3 }, { n: 'burst', v: 'a', x: 12, cls: 'pop x', b: 20 }, { n: 'pennant', x: 22, cls: 'x' }, { n: 'burst', v: 'b', x: 34, cls: 'pop', b: 24, d: 1 },
+        { n: 'pennant', x: 46 }, { n: 'burst', v: 'c', x: 58, cls: 'pop x', b: 18, d: 2 }, { n: 'pennant', x: 70 }, { n: 'burst', v: 'e', x: 80, cls: 'pop', b: 22, d: 1.4 }, { n: 'pennant', x: 92 }
       ],
       foot: [
-        { n: 'flag', x: 4 }, { n: 'burst', v: 'a', x: 16, cls: 'pop', b: 14 }, { n: 'flagh', x: 30, cls: 'x' }, { n: 'burst', v: 'c', x: 46, cls: 'pop x', b: 16, d: 1 },
-        { n: 'flag', x: 60 }, { n: 'burst', v: 'b', x: 74, cls: 'pop', b: 12, d: 2 }, { n: 'flagh', x: 90 }
+        { n: 'pennant', x: 4 }, { n: 'burst', v: 'a', x: 16, cls: 'pop', b: 14 }, { n: 'pennant', x: 30, cls: 'x' }, { n: 'burst', v: 'c', x: 46, cls: 'pop x', b: 16, d: 1 },
+        { n: 'pennant', x: 60 }, { n: 'burst', v: 'b', x: 74, cls: 'pop', b: 12, d: 2 }, { n: 'pennant', x: 90 }
       ],
-      topper: { n: 'flag', cls: 'tilt-r' },
+      topper: { n: 'pennant', cls: 'tilt-r' },
       corner: { n: 'burst', v: 'a' },
       sky: function (g) {
         sky(g, 'burst', 24, 8, 'pop', 'a');
         sky(g, 'burst', 76, 3, 'pop d1', 'b');
         sky(g, 'burst', 112, 12, 'pop d2', 'c');
         sky(g, 'burst', 146, 4, 'pop d3', 'e');
-        sky(g, 'flag', 25, 6);
-        sky(g, 'flag', 121, 10);
+        sky(g, 'pennant', 25, 6);
+        sky(g, 'pennant', 121, 10);
       }
     }
   };

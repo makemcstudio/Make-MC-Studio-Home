@@ -199,7 +199,7 @@ html[data-skin] .brand{position:relative}
 .skin-logo .small svg{width:calc(var(--w) * 1.5px)}
 html[data-skin="newyear"] .skin-logo,html[data-skin="halloween"] .skin-logo,html[data-skin="valentine"] .skin-logo,html[data-skin="muertos"] .skin-logo,html[data-skin="nation"] .skin-logo{left:14px;top:-8px}
 html[data-skin="mx"] .skin-logo{left:18px;top:-10px}
-html[data-skin="easter"] .skin-logo{left:7px;top:-13px}
+html[data-skin="easter"] .skin-logo{left:7px;top:-8px}
 html[data-skin="kings"] .skin-logo{left:6px;top:-8px}
 html[data-skin="carnival"] .skin-logo{left:3px;top:-6px}
 html[data-skin="xmas"] .skin-logo{left:-8px;top:-6px}
@@ -212,3 +212,10 @@ html[data-skin="xmas"] .skin-logo{left:-8px;top:-6px}
 .fest-layer.petals i{border-radius:0 100% 0 100%;height:var(--s)}
 .fest-layer.confetti i:nth-child(4n){height:calc(var(--s) * 2.6);width:2px}
 html[data-skin="kings"] .fest-layer.confetti i:nth-child(3n),html[data-skin="newyear"] .fest-layer.confetti i:nth-child(4n){clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);height:var(--s);width:var(--s);--c:#ffd24a}
+
+@media (max-width:1199px){
+  html[data-skin] .hero-board .t-craft{margin-top:30px}
+  .skin-topper{--px:4px;transform:translateY(-66%)}
+}
+html[data-skin] .skin-corner svg{filter:brightness(0);opacity:.5}
+.fest-layer.hearts{opacity:.6}
