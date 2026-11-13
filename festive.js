@@ -88,31 +88,31 @@
   var JUNE_THIRD = ['MX', 'AR', 'CL', 'CO', 'PE', 'VE', 'EC', 'US', 'CA'];
 
   var LOOKS = {
-    xmas: { decor: 'snow' },
-    newyear: { decor: 'confetti' },
-    halloween: { decor: 'embers' },
-    valentine: { decor: 'hearts' },
+    xmas: { skin: 'xmas', decor: 'snow' },
+    newyear: { skin: 'newyear', decor: 'confetti' },
+    halloween: { skin: 'halloween', decor: 'embers' },
+    valentine: { skin: 'valentine', decor: 'hearts' },
     lent: {},
-    easter: { decor: 'petals' },
-    kings: { decor: 'confetti' },
-    carnival: { decor: 'confetti', bunting: true },
-    muertos: { decor: 'petals', bunting: true },
-    mx: { decor: 'confetti', bunting: true },
-    cl: { decor: 'confetti', bunting: true },
-    ar: { decor: 'confetti', bunting: true },
-    co: { decor: 'confetti', bunting: true },
-    pe: { decor: 'confetti', bunting: true },
-    ve: { decor: 'confetti', bunting: true },
-    br: { decor: 'confetti', bunting: true },
-    ec: { decor: 'confetti', bunting: true },
-    bo: { decor: 'confetti', bunting: true },
-    uy: { decor: 'confetti', bunting: true },
-    py: { decor: 'confetti', bunting: true },
-    ca: { decor: 'confetti', bunting: true },
-    'do': { decor: 'confetti', bunting: true },
-    pa: { decor: 'confetti', bunting: true },
-    es: { decor: 'confetti', bunting: true },
-    us: { decor: 'confetti', bunting: true },
+    easter: { skin: 'easter', decor: 'petals' },
+    kings: { skin: 'kings', decor: 'confetti' },
+    carnival: { skin: 'carnival', decor: 'confetti', bunting: true },
+    muertos: { skin: 'muertos', decor: 'petals', bunting: true },
+    mx: { skin: 'mx', decor: 'confetti', bunting: true },
+    cl: { skin: 'nation', decor: 'confetti', bunting: true },
+    ar: { skin: 'nation', decor: 'confetti', bunting: true },
+    co: { skin: 'nation', decor: 'confetti', bunting: true },
+    pe: { skin: 'nation', decor: 'confetti', bunting: true },
+    ve: { skin: 'nation', decor: 'confetti', bunting: true },
+    br: { skin: 'nation', decor: 'confetti', bunting: true },
+    ec: { skin: 'nation', decor: 'confetti', bunting: true },
+    bo: { skin: 'nation', decor: 'confetti', bunting: true },
+    uy: { skin: 'nation', decor: 'confetti', bunting: true },
+    py: { skin: 'nation', decor: 'confetti', bunting: true },
+    ca: { skin: 'nation', decor: 'confetti', bunting: true },
+    'do': { skin: 'nation', decor: 'confetti', bunting: true },
+    pa: { skin: 'nation', decor: 'confetti', bunting: true },
+    es: { skin: 'nation', decor: 'confetti', bunting: true },
+    us: { skin: 'nation', decor: 'confetti', bunting: true },
     thanks: { decor: 'petals' },
     mother: { decor: 'petals' },
     father: {},
@@ -417,6 +417,8 @@
     writeStore(token);
     root.removeAttribute('data-look');
     root.removeAttribute('data-bunting');
+    root.removeAttribute('data-skin');
+    document.querySelectorAll('[data-skin-node]').forEach(function (item) { item.remove(); });
     var layer = document.querySelector('.fest-layer');
     if (layer) layer.remove();
     if (node) node.remove();
@@ -484,6 +486,9 @@
 
   root.setAttribute('data-look', active.holiday.look);
   if (look.bunting) root.setAttribute('data-bunting', '');
+  if (look.skin) root.setAttribute('data-skin', look.skin);
+  window.MCS = window.MCS || {};
+  window.MCS.greeting = function () { return words().text; };
 
   function start() {
     build();
