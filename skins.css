@@ -219,3 +219,29 @@ html[data-skin="kings"] .fest-layer.confetti i:nth-child(3n),html[data-skin="new
 }
 html[data-skin] .skin-corner svg{filter:brightness(0);opacity:.5}
 .fest-layer.hearts{opacity:.6}
+
+.vday{--px:6px}
+.vday-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px);align-items:center;padding:clamp(28px,5vw,64px);background:linear-gradient(135deg,var(--tile-2),var(--tile))}
+.vday-art{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:clamp(10px,2vw,22px);min-height:calc(var(--px) * 17 + 28px);padding-bottom:14px}
+.vday-art::after{content:"";position:absolute;inset-inline:0;bottom:0;height:6px;background:var(--rule);background-size:var(--rule-size);background-repeat:repeat-x}
+.vday-art .sk-sprite{position:relative;left:auto;bottom:auto}
+.vday-art .sk-sprite.beat svg{width:calc(var(--w) * var(--px) * 1.6)}
+.vday-copy{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.6vw,22px);min-width:0}
+.vday-copy h2{hyphens:none;overflow-wrap:normal;font:var(--wd) clamp(1.25rem,3vw,2.5rem)/1.15 var(--font-display);text-wrap:balance}
+.vday-copy h2::before{content:none}
+.vday-msg{min-height:6.4em;font-size:var(--t-lead);line-height:1.5;color:var(--ink);max-width:46ch;text-wrap:pretty}
+.vday-live{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.vday-heart{position:absolute;bottom:20px;left:var(--x);width:var(--s);height:var(--s);background:var(--accent);clip-path:polygon(50% 100%,0 40%,0 18%,14% 0,36% 0,50% 14%,64% 0,86% 0,100% 18%,100% 40%);pointer-events:none;opacity:0;animation:vday-up 1.4s steps(14,end) var(--dl) forwards}
+.vday-heart:nth-child(even){background:var(--accent-2)}
+@keyframes vday-up{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-150px)}}
+@keyframes vday-beat{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+@media (prefers-reduced-motion:no-preference){
+  .vday-art .sk-sprite.beat{animation:vday-beat 1s steps(3,end) infinite;transform-origin:50% 60%}
+}
+@media (max-width:899px){
+  .vday-card{grid-template-columns:minmax(0,1fr)}
+  .vday{--px:4px}
+}
+@media (max-width:399px){
+  .vday{--px:3px}
+}

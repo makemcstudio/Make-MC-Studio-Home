@@ -48,6 +48,14 @@
     return c;
   }
 
+  function figure(c, x, y, shirt) {
+    c.rect(x + 1, y, 5, 4, 'S');
+    c.rect(x + 1, y, 5, 1, 'H');
+    c.rect(x, y + 4, 7, 5, shirt);
+    c.rect(x + 1, y + 9, 2, 2, 'N');
+    c.rect(x + 4, y + 9, 2, 2, 'N');
+  }
+
   var MAKERS = {
     tree: function () {
       var c = canvas(13, 17);
@@ -199,6 +207,47 @@
         '...KKKKKK',
         '..KKKKKKK',
         'KKKKKKKKKK'.slice(0, 9)
+      ]);
+    },
+    solo: function () {
+      var c = canvas(11, 17);
+      c.rows(2, 0, ['.R.R.', 'RRRRR', '.RRR.', '..R..']);
+      figure(c, 2, 5, 'Q2');
+      c.rect(2, 11, 7, 1, 'Q2');
+      return c;
+    },
+    friends: function () {
+      var c = canvas(19, 17);
+      c.rows(6, 0, ['.RR.RR.', 'RRRRRRR', '.RRRRR.', '..RRR..', '...R...']);
+      figure(c, 1, 5, 'C');
+      figure(c, 11, 5, 'A');
+      c.rect(8, 11, 3, 1, 'S');
+      return c;
+    },
+    cat: function () {
+      return fromRows([
+        'OO.......OO',
+        'OOO.....OOO',
+        'OOOOOOOOOOO',
+        'OKKOOOOOKKO',
+        'OOOOOQOOOOO',
+        'OOOOOOOOOOO',
+        '.OOOOOOOOO.',
+        '..OOOOOOO..'
+      ]);
+    },
+    house: function () {
+      return fromRows([
+        '....RRR....',
+        '...RRRRR...',
+        '..RRRRRRR..',
+        '.RRRRRRRRR.',
+        'RRRRRRRRRRR',
+        '.LLLLLLLLL.',
+        '.LYLLLLLYL.',
+        '.LLLBBBLLL.',
+        '.LLLBBBLLL.',
+        '.LLLBBBLLL.'
       ]);
     },
     heart: function () {
@@ -531,7 +580,7 @@
   var COLORS = {
     Y: '#ffd24a', G: '#2fa95b', D: '#1f7a41', R: '#e63946', B: '#8a5a2b', B2: '#ffd24a', W: '#ffffff', K: '#1a1020',
     K2: '#c9c2d6', O: '#ff7a1a', O2: '#d95f08', P: '#b88cff', M: '#ff5fd2', N: '#10182e', F1: '#e63946', F2: '#ffffff', F3: '#2fa95b',
-    K0: '#0e0b14', C: '#c9a36a', B2X: '#8a5a2b'
+    K0: '#0e0b14', S: '#f2c9a0', H: '#6b3f1d', C: '#5ec8ff', Q: '#ff8fb8', Q2: '#ff8fb8', L: '#ffe6c7', A: '#ffd24a', C: '#c9a36a', B2X: '#8a5a2b'
   };
 
   var VARIANTS = {
@@ -881,6 +930,126 @@
     g.appendChild(holder);
   }
 
+
+  var VDAY = {
+    es: { t: 'Feliz San Valentín, para todos', b: 'Otro mensaje', m: ['No hace falta tener pareja para recibir cariño: tus amigos, tu familia y tus mascotas también te quieren.', 'Hoy también cuenta el cariño hacia ti: trátate con la misma ternura con la que tratas a quienes quieres.', 'Nunca estás solo: hay personas a las que les alegra que existas.', 'Es un buen día para decirle a alguien cuánto lo aprecias, aunque no sea tu pareja.', 'El amor tiene muchas formas, y todas valen.'] },
+    en: { t: "Happy Valentine's Day, to everyone", b: 'Another message', m: ["You don't need a partner to be loved: your friends, your family and your pets care about you too.", 'Today, your own kindness counts too: treat yourself with the same tenderness you give to the people you love.', 'You are never alone: there are people who are glad you exist.', "It's a good day to tell someone how much you appreciate them, even if they aren't your partner.", 'Love comes in many forms, and every one of them counts.'] },
+    pt: { t: 'Feliz Dia de São Valentim, para todos', b: 'Outra mensagem', m: ['Você não precisa ter um par para receber carinho: seus amigos, sua família e seus bichinhos também gostam de você.', 'Hoje o carinho por você também conta: trate-se com a mesma ternura com que trata quem você ama.', 'Você nunca está só: há pessoas que ficam felizes por você existir.', 'É um bom dia para dizer a alguém o quanto você valoriza essa pessoa, mesmo que ela não seja seu par.', 'O amor tem muitas formas, e todas valem.'] },
+    fr: { t: 'Joyeuse Saint-Valentin, à toutes et à tous', b: 'Un autre message', m: ["Pas besoin d'être en couple pour recevoir de l'affection : tes amis, ta famille et tes animaux t'aiment aussi.", "Aujourd'hui, l'affection envers toi compte aussi : traite-toi avec la même tendresse que tu offres à ceux que tu aimes.", "Tu n'es jamais seul(e) : des personnes sont heureuses que tu existes.", "C'est un bon jour pour dire à quelqu'un combien tu l'apprécies, même si ce n'est pas ton partenaire.", "L'amour prend mille formes, et toutes comptent."] },
+    de: { t: 'Fröhlichen Valentinstag an alle', b: 'Noch eine Nachricht', m: ['Man braucht keinen Partner, um geliebt zu werden: Deine Freunde, deine Familie und deine Haustiere mögen dich auch.', 'Heute zählt auch die Zuneigung zu dir selbst: Behandle dich mit derselben Zärtlichkeit wie die Menschen, die du liebst.', 'Du bist nie allein: Es gibt Menschen, die froh sind, dass es dich gibt.', 'Heute ist ein guter Tag, jemandem zu sagen, wie wichtig er dir ist, auch wenn es nicht dein Partner ist.', 'Liebe hat viele Formen, und alle zählen.'] },
+    it: { t: 'Buon San Valentino a tutti', b: 'Un altro messaggio', m: ['Non serve avere un partner per ricevere affetto: anche i tuoi amici, la tua famiglia e i tuoi animali ti vogliono bene.', "Oggi conta anche l'affetto verso te stesso: trattati con la stessa tenerezza che riservi a chi ami.", "Non sei mai solo: c'è chi è felice che tu esista.", 'È un bel giorno per dire a qualcuno quanto lo apprezzi, anche se non è il tuo partner.', "L'amore ha tante forme, e tutte contano."] },
+    ru: { t: 'С Днём святого Валентина всем!', b: 'Ещё одно сообщение', m: ['Чтобы получать любовь, не обязательно быть в паре: друзья, семья и питомцы тоже любят тебя.', 'Сегодня важна и забота о себе: относись к себе с той же нежностью, с какой относишься к тем, кого любишь.', 'Ты не одинок(а): есть люди, которые рады, что ты есть.', 'Хороший день, чтобы сказать кому-то, как ты им дорожишь, даже если это не твоя пара.', 'У любви много форм, и все они важны.'] },
+    tr: { t: 'Sevgililer Günü herkese kutlu olsun', b: 'Başka bir mesaj', m: ['Sevilmek için sevgilin olması gerekmez: arkadaşların, ailen ve evcil hayvanların da seni seviyor.', 'Bugün kendine duyduğun sevgi de sayılır: sevdiklerine gösterdiğin şefkati kendine de göster.', 'Asla yalnız değilsin: var olduğuna sevinen insanlar var.', 'Bugün, sevgilin olmasa bile birine onu ne kadar değerli bulduğunu söylemek için güzel bir gün.', 'Sevginin pek çok biçimi var ve hepsi değerli.'] },
+    ar: { t: 'عيد حب سعيد للجميع', b: 'رسالة أخرى', m: ['لا تحتاج إلى شريك لتنال المحبة: أصدقاؤك وعائلتك وحيواناتك الأليفة يحبونك أيضًا.', 'اللطف مع نفسك مهم اليوم أيضًا: عامل نفسك بالحنان نفسه الذي تمنحه لمن تحب.', 'لست وحدك أبدًا: هناك أشخاص يفرحون بوجودك.', 'إنه يوم جميل لتخبر شخصًا ما كم تقدّره، حتى لو لم يكن شريكك.', 'للحب أشكال كثيرة، وكلها لها قيمة.'] },
+    'zh-Hans': { t: '情人节快乐，送给每一个人', b: '再看一条', m: ['不一定要有伴侣才能被爱：你的朋友、家人和宠物也都爱着你。', '今天也别忘了善待自己：像对待你爱的人那样温柔地对待自己。', '你从不孤单：有人因为你的存在而感到开心。', '今天很适合告诉某个人你有多珍惜他，哪怕他不是你的伴侣。', '爱有很多种形式，每一种都值得珍视。'] },
+    'zh-Hant': { t: '情人節快樂，送給每一個人', b: '再看一則', m: ['不一定要有伴侶才能被愛：你的朋友、家人和寵物也都愛著你。', '今天也別忘了善待自己：像對待你所愛的人那樣溫柔地對待自己。', '你從不孤單：有人因為你的存在而感到開心。', '今天很適合告訴某個人你有多珍惜他，即使他不是你的伴侶。', '愛有很多種形式，每一種都值得珍視。'] },
+    ja: { t: 'すべての人に、ハッピーバレンタイン', b: '別のメッセージ', m: ['愛されるのにパートナーは必要ありません。友だちも家族もペットも、あなたを大切に思っています。', '今日は自分へのやさしさも大切に。大切な人にするのと同じように、自分にもやさしく接してください。', 'あなたはひとりではありません。あなたがいることを喜んでいる人がいます。', 'パートナーでなくても、大切な人に「ありがとう」を伝えるのにぴったりの日です。', '愛にはいろいろな形があり、そのどれもが尊いものです。'] },
+    ko: { t: '모두에게, 행복한 발렌타인데이', b: '다른 메시지', m: ['사랑받기 위해 꼭 연인이 있어야 하는 건 아니에요. 친구도, 가족도, 반려동물도 당신을 아끼고 있어요.', '오늘은 나 자신에게 주는 다정함도 소중해요. 사랑하는 사람에게 하듯 자신에게도 따뜻하게 대해 주세요.', '당신은 결코 혼자가 아니에요. 당신이 있어서 기뻐하는 사람들이 있어요.', '연인이 아니어도, 누군가에게 얼마나 소중한지 말해 주기에 좋은 날이에요.', '사랑에는 여러 모습이 있고, 그 모두가 소중해요.'] }
+  };
+
+  function valentineCard(anchor) {
+    var section = document.createElement('section');
+    section.className = 'wrap sec-tight vday';
+    section.setAttribute('data-skin-node', '');
+    section.setAttribute('aria-labelledby', 'vday-title');
+    var card = document.createElement('div');
+    card.className = 'panel vday-card';
+    var art = document.createElement('div');
+    art.className = 'vday-art';
+    art.setAttribute('aria-hidden', 'true');
+    [['house', '', '', 0], ['friends', '', 'bob', 0.3], ['heart', 'a', 'beat', 0], ['cat', '', 'bob', 0.6], ['solo', '', 'bob', 0.9]].forEach(function (s) {
+      var holder = document.createElement('span');
+      holder.className = 'sk-sprite' + (s[2] ? ' ' + s[2] : '');
+      holder.style.setProperty('--dl', s[3] + 's');
+      holder.appendChild(sprite(s[0], s[1]));
+      art.appendChild(holder);
+    });
+    var copy = document.createElement('div');
+    copy.className = 'vday-copy';
+    var title = document.createElement('h2');
+    title.id = 'vday-title';
+    var live = document.createElement('p');
+    live.className = 'vday-live';
+    var shown = document.createElement('p');
+    shown.className = 'vday-msg';
+    shown.setAttribute('aria-hidden', 'true');
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn';
+    copy.appendChild(title);
+    copy.appendChild(live);
+    copy.appendChild(shown);
+    copy.appendChild(button);
+    card.appendChild(art);
+    card.appendChild(copy);
+    section.appendChild(card);
+    anchor.parentNode.insertBefore(section, anchor.nextSibling);
+
+    var index = Math.floor(Math.random() * 5);
+    var timer = 0;
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function words() {
+      var lang = window.MCS && window.MCS.lang;
+      return VDAY[lang] || VDAY.en;
+    }
+
+    function type(text) {
+      window.clearTimeout(timer);
+      live.textContent = text;
+      if (calm) {
+        shown.textContent = text;
+        return;
+      }
+      var chars = Array.from(text);
+      var at = 0;
+      shown.textContent = '';
+      (function step() {
+        at = Math.min(chars.length, at + 2);
+        shown.textContent = chars.slice(0, at).join('');
+        if (at < chars.length) timer = window.setTimeout(step, 28);
+      })();
+    }
+
+    function paint(animate) {
+      var w = words();
+      var lang = window.MCS && window.MCS.lang;
+      card.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      card.setAttribute('lang', VDAY[lang] ? lang : 'en');
+      title.textContent = w.t;
+      button.textContent = w.b;
+      if (animate) type(w.m[index]);
+      else {
+        window.clearTimeout(timer);
+        live.textContent = w.m[index];
+        shown.textContent = w.m[index];
+      }
+    }
+
+    function burst() {
+      if (calm) return;
+      for (var i = 0; i < 9; i++) {
+        var heart = document.createElement('i');
+        heart.className = 'vday-heart';
+        heart.style.setProperty('--x', 10 + Math.random() * 80 + '%');
+        heart.style.setProperty('--dx', Math.round(Math.random() * 60 - 30) + 'px');
+        heart.style.setProperty('--s', 10 + Math.round(Math.random() * 10) + 'px');
+        heart.style.setProperty('--dl', (i * 0.08).toFixed(2) + 's');
+        heart.addEventListener('animationend', function (e) { e.target.remove(); });
+        art.appendChild(heart);
+      }
+    }
+
+    button.addEventListener('click', function () {
+      index = (index + 1) % 5;
+      paint(true);
+      burst();
+    });
+
+    paint(false);
+    document.addEventListener('mcs:lang', function () { paint(false); });
+  }
+
   var scene = SCENES[skin];
   if (!scene) return;
 
@@ -890,6 +1059,7 @@
     host.insertBefore(bg, host.firstChild);
 
     var ticker = document.querySelector('.ticker');
+    if (ticker && skin === 'valentine') valentineCard(ticker);
     if (ticker) {
       var top = node('div', 'scene scene-hero');
       var topIn = node('div', 'scene-in');
