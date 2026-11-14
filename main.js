@@ -106,6 +106,15 @@
         grid.querySelectorAll('[data-g="' + chip.getAttribute('data-g') + '"]').forEach(function (cell) {
           cell.classList.toggle('off', !on);
         });
+        if (on && !reduceMotion) {
+          grid.querySelectorAll('[data-g="' + chip.getAttribute('data-g') + '"]').forEach(function (cell, index) {
+            if (!cell.animate) return;
+            cell.animate(
+              [{ transform: 'scale(.78)' }, { transform: 'scale(1.07)', offset: 0.55 }, { transform: 'none' }],
+              { duration: 520, delay: index * 60, easing: 'cubic-bezier(.22,1,.36,1)' }
+            );
+          });
+        }
         var all = Array.prototype.every.call(chips, function (c) { return c.getAttribute('aria-pressed') === 'true'; });
         result.classList.toggle('lit', all);
       });
