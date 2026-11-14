@@ -105,7 +105,7 @@
       return;
     }
     var script = document.createElement('script');
-    script.src = 'lang/' + code + '.js?v=50';
+    script.src = 'lang/' + code + '.js?v=51';
     script.onload = function () { done(Boolean(MCS.dict[code])); };
     script.onerror = function () { done(false); };
     (document.head || root).appendChild(script);
