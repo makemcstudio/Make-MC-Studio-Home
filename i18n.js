@@ -105,7 +105,7 @@
       return;
     }
     var script = document.createElement('script');
-    script.src = 'lang/' + code + '.js?v=49';
+    script.src = 'lang/' + code + '.js?v=50';
     script.onload = function () { done(Boolean(MCS.dict[code])); };
     script.onerror = function () { done(false); };
     (document.head || root).appendChild(script);
@@ -128,7 +128,12 @@
         return;
       }
       ready(function () {
-        apply(code);
+        var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (remember && !calm && document.startViewTransition && code !== MCS.lang) {
+          document.startViewTransition(function () { apply(code); });
+        } else {
+          apply(code);
+        }
         if (remember) writeStore(code);
         reveal();
       });

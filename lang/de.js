@@ -94,5 +94,6 @@
  "mail_subject": "Kontakt - Make MC Studio",
  "mail_body": "Hallo,\n\nich schreibe dir, weil ich gern [bei einem Projekt mitarbeiten / ein Modpack in Auftrag geben] möchte. Das habe ich im Sinn:\n\n",
  "menu_close": "Menü schließen",
+ "to_top": "Nach oben",
  "lang_label": "Sprache"
 };

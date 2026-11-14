@@ -9,6 +9,12 @@
   var ctx = canvas && canvas.getContext ? canvas.getContext('2d') : null;
   var track = document.querySelector('.ticker-track');
   var art = document.querySelector('.t-art');
+  var hero = document.querySelector('.hero');
+  var grid = document.getElementById('craftGrid');
+  var topButton = document.querySelector('.to-top');
+  var heroHeight = hero ? hero.offsetHeight : 0;
+  var shownHs = -1;
+  var topShown = false;
   var connection = navigator.connection;
   var frugal = !!(connection && connection.saveData) || (navigator.hardwareConcurrency || 4) <= 2;
 
@@ -55,6 +61,7 @@
   }
 
   function resize() {
+    if (hero) heroHeight = hero.offsetHeight;
     var w = window.innerWidth;
     var h = window.innerHeight;
     if (w === width && Math.abs(h - height) < 160) return;
@@ -119,6 +126,22 @@
       ambient.style.setProperty('--sy', sy.toFixed(4));
     }
 
+    if (hero && heroHeight && !calm.matches) {
+      var hs = Math.min(1, Math.max(0, y / heroHeight));
+      if (Math.abs(hs - shownHs) > 0.002) {
+        shownHs = hs;
+        hero.style.setProperty('--hs', hs.toFixed(3));
+      }
+    }
+
+    if (topButton) {
+      var wantTop = y > window.innerHeight * 1.1;
+      if (wantTop !== topShown) {
+        topShown = wantTop;
+        topButton.classList.toggle('show', wantTop);
+      }
+    }
+
     if (art && artVisible) {
       var box = art.getBoundingClientRect();
       var py = Math.max(0, Math.min(1, (window.innerHeight - box.top) / (window.innerHeight + box.height)));
@@ -171,6 +194,10 @@
     }, { passive: true });
   }
   window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('load', function () {
+    if (hero) heroHeight = hero.offsetHeight;
+    kick();
+  });
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) kick();
   });
@@ -189,10 +216,86 @@
   }
   kick();
 
+  if (topButton) {
+    topButton.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
+      topButton.blur();
+    });
+  }
+
+  if (!calm.matches) {
+    var sparks = null;
+    var sparkCtx = null;
+    var bits = [];
+    var sparkStamp = 0;
+    var sparkRunning = false;
+
+    var step = function (t) {
+      var dt = Math.min((t - sparkStamp) / 1000, 0.05);
+      sparkStamp = t;
+      sparkCtx.clearRect(0, 0, sparks.width, sparks.height);
+      bits = bits.filter(function (bit) {
+        bit.life -= dt;
+        if (bit.life <= 0) return false;
+        bit.vy += 900 * dt;
+        bit.x += bit.vx * dt;
+        bit.y += bit.vy * dt;
+        sparkCtx.globalAlpha = Math.min(1, bit.life / 0.35);
+        sparkCtx.fillStyle = colors[bit.tint];
+        sparkCtx.fillRect(Math.round(bit.x / 2) * 2, Math.round(bit.y / 2) * 2, bit.s, bit.s);
+        return true;
+      });
+      sparkCtx.globalAlpha = 1;
+      if (bits.length) {
+        window.requestAnimationFrame(step);
+      } else {
+        sparkRunning = false;
+        sparks.remove();
+        sparks = null;
+        sparkCtx = null;
+      }
+    };
+
+    document.addEventListener('pointerdown', function (event) {
+      var target = event.target.closest ? event.target.closest('a,button') : null;
+      if (!target || event.button > 0) return;
+      if (!sparks) {
+        sparks = document.createElement('canvas');
+        sparks.className = 'burst';
+        sparks.setAttribute('aria-hidden', 'true');
+        sparkCtx = sparks.getContext('2d');
+        document.body.appendChild(sparks);
+      }
+      if (!sparkCtx) return;
+      if (sparks.width !== window.innerWidth || sparks.height !== window.innerHeight) {
+        sparks.width = window.innerWidth;
+        sparks.height = window.innerHeight;
+      }
+      for (var i = 0; i < 14; i += 1) {
+        var angle = Math.random() * 6.283;
+        var power = 110 + Math.random() * 230;
+        bits.push({
+          x: event.clientX,
+          y: event.clientY,
+          vx: Math.cos(angle) * power,
+          vy: Math.sin(angle) * power - 150,
+          s: Math.random() < 0.6 ? 4 : 6,
+          life: 0.5 + Math.random() * 0.4,
+          tint: Math.floor(Math.random() * 3)
+        });
+      }
+      if (!sparkRunning) {
+        sparkRunning = true;
+        sparkStamp = performance.now();
+        window.requestAnimationFrame(step);
+      }
+    }, { passive: true });
+  }
+
   if (!fine.matches || calm.matches) return;
 
-  var hero = document.querySelector('.hero');
-  var grid = document.getElementById('craftGrid');
+  var tilted = null;
+  var pulled = null;
   var selector = '.card,.fact,.step,.ing,.panel';
   var current = null;
   var pointerX = 0;
@@ -206,6 +309,20 @@
       var box = current.getBoundingClientRect();
       current.style.setProperty('--mx', Math.round(pointerX - box.left) + 'px');
       current.style.setProperty('--my', Math.round(pointerY - box.top) + 'px');
+    }
+    if (tilted) {
+      var tb = tilted.getBoundingClientRect();
+      var tx = (pointerX - tb.left) / tb.width;
+      var ty = (pointerY - tb.top) / tb.height;
+      tilted.style.setProperty('--mry', ((tx - 0.5) * 9).toFixed(2) + 'deg');
+      tilted.style.setProperty('--mrx', ((0.5 - ty) * 7).toFixed(2) + 'deg');
+    }
+    if (pulled) {
+      var pb = pulled.getBoundingClientRect();
+      var px = Math.max(-8, Math.min(8, (pointerX - (pb.left + pb.width / 2)) * 0.22));
+      var py = Math.max(-6, Math.min(6, (pointerY - (pb.top + pb.height / 2)) * 0.22));
+      pulled.style.setProperty('--bx', px.toFixed(1) + 'px');
+      pulled.style.setProperty('--by', py.toFixed(1) + 'px');
     }
     if (inHero && hero) {
       var rect = hero.getBoundingClientRect();
@@ -227,6 +344,19 @@
     window.requestAnimationFrame(flush);
   }
 
+  function settle() {
+    if (tilted) {
+      tilted.style.setProperty('--mrx', '0deg');
+      tilted.style.setProperty('--mry', '0deg');
+      tilted = null;
+    }
+    if (pulled) {
+      pulled.style.setProperty('--bx', '0px');
+      pulled.style.setProperty('--by', '0px');
+      pulled = null;
+    }
+  }
+
   function leaveHero() {
     inHero = false;
     if (hero) hero.style.setProperty('--ho', '0');
@@ -246,23 +376,34 @@
       current = target;
       if (current) current.classList.add('hot');
     }
+    var card = event.target.closest ? event.target.closest('.member') : null;
+    var magnet = event.target.closest ? event.target.closest('.btn:not(.btn-link),.social-icon') : null;
+    if (card !== tilted || magnet !== pulled) {
+      var keepCard = card;
+      var keepMagnet = magnet;
+      settle();
+      tilted = keepCard;
+      pulled = keepMagnet;
+    }
     var over = !!(hero && event.target.closest && event.target.closest('.hero'));
     if (over !== inHero) {
       if (over) inHero = true;
       else leaveHero();
     }
-    if (current || inHero) schedule();
+    if (current || inHero || tilted || pulled) schedule();
   }, { passive: true });
 
   window.addEventListener('scroll', function () {
     if (current) current.classList.remove('hot');
     current = null;
+    settle();
     if (inHero) leaveHero();
   }, { passive: true });
 
   root.addEventListener('mouseleave', function () {
     if (current) current.classList.remove('hot');
     current = null;
+    settle();
     leaveHero();
   });
 })();

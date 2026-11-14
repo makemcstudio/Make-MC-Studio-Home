@@ -94,5 +94,6 @@
  "mail_subject": "İletişim - Make MC Studio",
  "mail_body": "Merhaba,\n\nSize [bir projeye katılmak / bir modpack ısmarlamak] istediğim için yazıyorum. Aklımdakiler şunlar:\n\n",
  "menu_close": "Menüyü kapat",
+ "to_top": "Başa dön",
  "lang_label": "Dil"
 };

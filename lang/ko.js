@@ -94,5 +94,6 @@
  "mail_subject": "문의 - Make MC Studio",
  "mail_body": "안녕하세요.\n\n[프로젝트에 참여하고 싶어서 / 모드팩을 의뢰하고 싶어서] 연락드립니다. 제 생각은 다음과 같습니다.\n\n",
  "menu_close": "메뉴 닫기",
+ "to_top": "맨 위로",
  "lang_label": "언어"
 };
