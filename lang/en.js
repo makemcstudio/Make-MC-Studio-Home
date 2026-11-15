@@ -95,6 +95,5 @@
  "mail_body": "Hello,\n\nI'm writing to you because I'd like to [collaborate on a project / commission a modpack]. Here is what I have in mind:\n\n",
  "menu_close": "Close menu",
  "title": "Make MC Studio · Minecraft modpacks, textures and servers",
- "to_top": "Back to top",
  "lang_label": "Language"
 };

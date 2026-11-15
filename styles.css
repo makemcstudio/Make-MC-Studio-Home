@@ -453,23 +453,13 @@ html[data-skin] .ambient{display:none}
 .btn:not(.btn-link),.social-icon{translate:var(--bx,0px) var(--by,0px)}
 .hero-board .t-craft{transform:translate3d(0,calc(var(--hs,0)*56px),0)}
 .hero-board .t-name{transform:translate3d(0,calc(var(--hs,0)*-26px),0);opacity:calc(1 - var(--hs,0)*.55)}
-.to-top{position:fixed;inset-inline-end:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:60;display:grid;place-items:center;width:48px;height:48px;padding:0;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer;clip-path:var(--notch);visibility:hidden;opacity:0;transform:translate3d(0,14px,0);transition:opacity 420ms var(--ease-out),transform 420ms var(--ease-out),visibility 0s linear 420ms,background var(--t-hover) var(--ease-out)}
-.to-top svg{width:22px;height:22px}
-.to-top.show{visibility:visible;opacity:1;transform:none;transition-delay:0s}
-.to-top:active{background:var(--accent-2)}
 .burst{position:fixed;inset:0;z-index:90;width:100%;height:100%;pointer-events:none}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:360ms}
-@media (hover:hover){
-  .to-top:hover{background:var(--accent-2)}
-  .to-top:hover svg{animation:nudge-up 900ms var(--ease-in-out) infinite}
-}
 @media (prefers-reduced-motion:no-preference){
   .t-result .ico-lg{animation:point 2.6s var(--ease-in-out) infinite}
   @keyframes point{0%,100%{translate:0 0}50%{translate:calc(10px*var(--dir,1)) 0}}
-  @keyframes nudge-up{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 }
 @media (prefers-reduced-motion:reduce){
-  .to-top{transition:opacity 1ms,visibility 0s}
   .hero-board .t-craft,.hero-board .t-name{transform:none;opacity:1}
   .member{transform:none}
 }
@@ -478,7 +468,7 @@ html[dir="rtl"] .t-result .ico-lg{--dir:-1}
 @media print{
   html,body{background:#fff}
   *,*::before,*::after{color:#000!important;background:transparent!important;box-shadow:none!important;text-shadow:none!important;animation:none!important;transition:none!important}
-  .ambient,.embers,.progress,.to-top,.burst,.skip-link,.ticker,.nav-toggle,.site-nav,.fest-hello,.fest-layer,.skin-bg,.scene,.skin-halo{display:none!important}
+  .ambient,.embers,.progress,.burst,.skip-link,.ticker,.nav-toggle,.site-nav,.fest-hello,.fest-layer,.skin-bg,.scene,.skin-halo{display:none!important}
   .site-header{position:static}
   .rv{opacity:1!important;transform:none!important}
   .panel,.card,.member,.step,.fact{border:1px solid #999;break-inside:avoid}

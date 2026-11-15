@@ -11,10 +11,8 @@
   var art = document.querySelector('.t-art');
   var hero = document.querySelector('.hero');
   var grid = document.getElementById('craftGrid');
-  var topButton = document.querySelector('.to-top');
   var heroHeight = hero ? hero.offsetHeight : 0;
   var shownHs = -1;
-  var topShown = false;
   var connection = navigator.connection;
   var frugal = !!(connection && connection.saveData) || (navigator.hardwareConcurrency || 4) <= 2;
 
@@ -134,14 +132,6 @@
       }
     }
 
-    if (topButton) {
-      var wantTop = y > window.innerHeight * 1.1;
-      if (wantTop !== topShown) {
-        topShown = wantTop;
-        topButton.classList.toggle('show', wantTop);
-      }
-    }
-
     if (art && artVisible) {
       var box = art.getBoundingClientRect();
       var py = Math.max(0, Math.min(1, (window.innerHeight - box.top) / (window.innerHeight + box.height)));
@@ -215,13 +205,6 @@
     }, { rootMargin: '10% 0px' }).observe(art);
   }
   kick();
-
-  if (topButton) {
-    topButton.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: calm.matches ? 'auto' : 'smooth' });
-      topButton.blur();
-    });
-  }
 
   if (!calm.matches) {
     var sparks = null;

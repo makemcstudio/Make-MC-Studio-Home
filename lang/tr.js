@@ -95,6 +95,5 @@
  "mail_body": "Merhaba,\n\nSize [bir projeye katılmak / bir modpack ısmarlamak] istediğim için yazıyorum. Aklımdakiler şunlar:\n\n",
  "menu_close": "Menüyü kapat",
  "title": "Make MC Studio · Minecraft modpack'leri, dokuları ve sunucuları",
- "to_top": "Başa dön",
  "lang_label": "Dil"
 };

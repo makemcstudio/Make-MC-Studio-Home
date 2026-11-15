@@ -95,6 +95,5 @@
  "mail_body": "你好，\n\n我写信给你们，是因为我想[参与一个项目 / 定制一个整合包]。我的想法如下：\n\n",
  "menu_close": "关闭菜单",
  "title": "Make MC Studio · Minecraft 整合包、材质包与服务器",
- "to_top": "回到顶部",
  "lang_label": "语言"
 };

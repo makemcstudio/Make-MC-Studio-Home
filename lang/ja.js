@@ -95,6 +95,5 @@
  "mail_body": "こんにちは。\n\n[プロジェクトに参加したい / Modpack を依頼したい] と思い、ご連絡しました。内容は次のとおりです。\n\n",
  "menu_close": "メニューを閉じる",
  "title": "Make MC Studio · Minecraft のModパック、テクスチャ、サーバー",
- "to_top": "トップへ戻る",
  "lang_label": "言語"
 };
