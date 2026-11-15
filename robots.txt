@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://makemcstudio.github.io/Make-MC-Studio-Home/sitemap.xml

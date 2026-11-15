@@ -474,3 +474,13 @@ html[data-skin] .ambient{display:none}
   .member{transform:none}
 }
 html[dir="rtl"] .t-result .ico-lg{--dir:-1}
+
+@media print{
+  html,body{background:#fff}
+  *,*::before,*::after{color:#000!important;background:transparent!important;box-shadow:none!important;text-shadow:none!important;animation:none!important;transition:none!important}
+  .ambient,.embers,.progress,.to-top,.burst,.skip-link,.ticker,.nav-toggle,.site-nav,.fest-hello,.fest-layer,.skin-bg,.scene,.skin-halo{display:none!important}
+  .site-header{position:static}
+  .rv{opacity:1!important;transform:none!important}
+  .panel,.card,.member,.step,.fact{border:1px solid #999;break-inside:avoid}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;word-break:break-all}
+}

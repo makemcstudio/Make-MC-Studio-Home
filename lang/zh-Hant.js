@@ -94,6 +94,7 @@
  "mail_subject": "聯絡 - Make MC Studio",
  "mail_body": "你好，\n\n我寫信給你們，是因為我想[參與一個專案／訂製一個模組包]。我的想法如下：\n\n",
  "menu_close": "關閉選單",
+ "title": "Make MC Studio · Minecraft 整合包、材質包與伺服器",
  "to_top": "回到頂部",
  "lang_label": "語言"
 };
